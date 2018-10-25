@@ -1,0 +1,77 @@
+# cavity simulator setup (dsp_sim.v), not part of GUI
+0x325430	8520	# cm1
+0x325431	4294944690	# d 2^32-22606
+
+0x210002	0x113	# rf_config_iob, power on two ADCs and the DAC, use delay channel 1
+
+0x21000a	0	# signs, select upper vs. lower sideband on AOM
+
+# Set synthetic RF pulse trigger
+# 0x210004	119999199	# fully coherent with cal cycle
+# 0x210004	119999992	# one trigger per second, coherent with divide-by-61
+# 0x210004	24399		# every 40 cal cycles?
+# 0x210004	12079096	# 10 Hz
+# 0x210004	4200		# really fast to get an RF pulse in a short simulation
+# 0x210004	12079096	# trig_interval, 10 Hz, synchronous with phref # using 120 MHz clock
+0x210004	24158192	# trig_interval, 10 Hz, synchronous with phref # using 242 MHz clock
+
+0x210005	2	# trig_mode, assumes dsp/timing.v uses start_test
+
+0x21000b	0	# SLED phase offset
+0x210006	0	# SLED phase slope
+
+# delay for acquisition window relative to trigger
+# (guarantees never seeing a cal pulse; set to 700 to see some of both)
+0x210007	1700	# view_delay
+
+# set timing and feedback registers to match times_tb.v and pulse_fdbk_tb.v
+# take the 4 in 0x34, add 1, means 5 cycles of (1000/120.8*61 = 505 ns)
+# = 2.525 us for calibration pulse, double that for cal on/cal off cycle.
+# The "3" part refers to how many of those 505 ns cycles are included in
+# the measurement integration.  Confirmed in hardware with o'scope.
+# Spectrum analyzer finds peaks at 2998, 2998+/-0.2, 2998+/0.6, 2998+/-1.0.
+# In other words, 1/5us calibration period -> 0.2 MHz and odd harmonics.
+0x210015	0x34	# cal_config_r
+
+0x21000e	10	# rf_mod_start_t
+0x21000f	4095	# rf_mod_length_t
+0x210010	2199	# rf_acq_start_t
+0x210011	122	# rf_acq_length_t
+0x210012	1861	# rf_pulse_start_t
+0x210013	242	# rf_pulse_length_t
+0x210014	2400	# rf_cnt_end_t
+0x210016	11400	# cal_amp (max value 18000)
+0x210017	524288	# cal_pha (180 degrees)
+0x210018	0	# amp_set
+0x21000c	0	# amploop_gain
+0x210019	4500	# kly_min, takes precedence over kly_max
+0x21001a	0	# kly_max
+0x21001b	1048575	# phase_set
+0x21001c	3	# close_loop, both bits on.  Go for it.
+0x21001e	1	# cal_cfg
+0x21001f	995	# cal_acq_stop  1023-28
+
+# possibly useful first estimate of deycoef is 34300
+# presumably one box needs to hit bit 0 of 0x21000a to get sign right
+0x210001	0	# deycoef
+
+# 0x21001d	1	# CW output mode routed to cal DAC (J19)
+# 0x21001d	3	# CW output mode routed to kly DAC (J18)
+0x21001d	0	# out_cfg, normal pulsed calibration operation
+
+# load Kp and Ki to turn on the PLL
+0x210008	1	# Ki
+0x210009	566	# Kp
+0x210003	0	# static set, not used when PLL is running
+
+# read back a couple of words
+0x10210013	0x20202020	# rf_pulse_length_t
+0x10210014	0x20202020	# rf_cnt_end_t
+0x10500000	0x20202020	# config_rom 0 (magic)
+0x10500001	0x20202020	# config_rom 1 (type)
+0x10500002	0x20202020	# config_rom 2 (year)
+0x10500003	0x20202020	# config_rom 3 (month)
+0x10500004	0x20202020	# config_rom 4 (day)
+0x10223000	0x50505050	# poll
+
+

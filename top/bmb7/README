@@ -1,0 +1,2 @@
+Differential 125MHz clock from the jitter cleaner comes in at the pins K6 and K5.
+Modified the xdc in board_support to reflect this (no longer using the external REF clock)

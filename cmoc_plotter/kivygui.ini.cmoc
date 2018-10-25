@@ -1,0 +1,31 @@
+[live_target]
+ip = 192.168.1.173
+protocol = PSPEPS
+id = cmoc_plotter
+enabled = 1
+port = 3000
+async = 1
+app_path = ../cmoc_plotter
+init = 1
+
+[redis_target]
+username = larry
+hash_samples = fpga:pipe
+protocol = REDIS
+frame_rate = 20
+ip = acer3.dhcp.lbl.gov
+enabled = False
+id = redis
+port = 6379
+
+[file_target]
+enabled = True
+protocol = FILE
+id = trace_data_file
+fname = ./live.dat
+
+[graph]
+measure_log = False
+trace_len = 1024
+update_rate = 10.0
+measure_log_fname = ./measure_log.txt

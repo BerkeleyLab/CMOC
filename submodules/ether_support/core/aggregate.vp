@@ -1,0 +1,137 @@
+`timescale 1ns / 1ns
+
+module aggregate #(
+	parameter [31:0] ip = {8'd192, 8'd168, 8'd7, 8'd2},  // 192.168.7.2
+	parameter [47:0] mac = 48'h125555000137,
+	parameter [47:0] DEFAULT_DESTINATION_MAC_ADDRESS = 48'hFFFFFFFFFFFF,
+	parameter [31:0] DEFAULT_DESTINATION_IP_ADDRESS  = 32'hFFFFFFFF,
+// Magic default destination UDP port
+	parameter jumbo_dw=14  // 14 for jumbo frame support, 11 for traditional Ethernet
+) (
+	input clk,  // timespec 7.2 ns
+	input [7:0] eth_in,
+	input eth_in_s,
+	output [7:0] eth_out,
+	output eth_out_s,
+	input [8:0] address_set,  // set MAC and IP address
+	output rx_crc_ok,
+	output rx_crc_fault,
+	// Magic ports
+	output [3:0] leds,
+	output [2:0] debug
+);
+
+wire [2:0] debug_data;
+wire [11:0] crx00, crx0;
+// wire [11:0] crx1, crx2;  // chain Rx data path
+wire [10:0] arp_bus, icmp_bus;
+wire [4:0] shmem_a1, shmem_a2;
+wire [7:0] shmem_d1, shmem_d2;
+wire shmem_wen1, shmem_bank, shmem_idle;
+wire rx_packet_start;
+head_rx #(.ip(ip), .mac(mac)) hr1(.clk(clk),
+	.eth_octet(eth_in), .eth_strobe(eth_in_s),
+	.out_c(crx00), .arp_bus(arp_bus), .icmp_bus(icmp_bus),
+	.shmem_a(shmem_a1), .shmem_d(shmem_d1), .shmem_wen(shmem_wen1),
+	.shmem_idle(shmem_idle), .shmem_bank(shmem_bank),
+	.address_set(address_set),
+	.packet_start(rx_packet_start), .crc_ok(rx_crc_ok), .crc_fault(rx_crc_fault),
+	.debug(debug_data[2]));
+
+`define NO_CRC
+`ifdef NO_CRC
+assign crx0=crx00;
+`else
+crc_check crc(.clk(clk), .eth_strobe(eth_in_s), .in_c(crx00), .out_c(crx0));
+`endif
+
+wire arp_reply_req, icmp_reply_req;
+wire [9:0] ctx0, ctx_out;
+
+// Magic request wiring
+// wire [15:0] tx_request = ...
+
+wire [jumbo_dw-1:0] payload_len;  // big enough for traditional 1500 MTU
+wire [7:0] port_byte;
+wire port_bsel, arp_mode, icmp_mode;
+head_tx #(.jumbo_dw(jumbo_dw)) h1(.clk(clk), .out_c(ctx0), .tx_request(tx_request),
+	.port_bsel(port_bsel), .port_byte(port_byte), .arp_mode(arp_mode),
+        .icmp_mode(icmp_mode),
+	.payload_len(payload_len));
+
+// Magic instantiation
+
+wire start_header, x_data;
+wire [7:0] payload;
+tail_tx #(.jumbo_dw(jumbo_dw)) t1(.clk(clk), .in_c(ctx_out),
+	.payload_len(payload_len),
+	.start_header(start_header), .x_data(x_data),
+	.payload(payload));
+
+wire arp_reply_strobe;
+wire [7:0] arp_data;
+arp_tx #(.ip(ip), .mac(mac)) arp(.clk(clk),
+	.arp_bus(arp_bus), .address_set(address_set),
+	.arp_reply_req(arp_reply_req),
+	.strobe(arp_reply_strobe), .data_out(arp_data));
+
+wire icmp_reply_strobe;
+wire [7:0] icmp_data;
+icmp_tx #(
+    .ip(ip), .mac(mac)
+) icmp(.clk(clk),
+    .icmp_bus(icmp_bus),
+    .reply_req(icmp_reply_req),
+    .address_set(address_set),
+    .strobe(icmp_reply_strobe),
+    .data_out(icmp_data)
+);
+
+assemble_eth #(.ip(ip), .mac(mac), .jumbo_dw(jumbo_dw)) as1(.clk(clk),
+	.port_bsel(port_bsel), .port_byte(port_byte),
+	.payload_len(payload_len), .start_header(start_header),
+	.x_data(x_data), .payload(payload),
+	.eth_octet(eth_out), .eth_strobe(eth_out_s),
+	.shmem_a(shmem_a2), .shmem_d(shmem_d2),
+	.shmem_bank(shmem_bank), .shmem_idle(shmem_idle),
+	.address_set(address_set),
+	.arp_reply_strobe(arp_reply_strobe), .arp_data(arp_data),
+	.arp_mode(arp_mode), .debug(debug_data[1]),
+	.icmp_reply_strobe(icmp_reply_strobe), .icmp_data(icmp_data),
+        .icmp_mode(icmp_mode)
+        );
+
+dpram_pkheader #(.aw(5), .dw(8),
+	.DEFAULT_DESTINATION_MAC_ADDRESS(DEFAULT_DESTINATION_MAC_ADDRESS),
+	.DEFAULT_DESTINATION_IP_ADDRESS(DEFAULT_DESTINATION_IP_ADDRESS),
+	.DEFAULT_DESTINATION_UDP_PORT(DEFAULT_DESTINATION_UDP_PORT)
+	) dpr(.clka(clk), .clkb(clk),
+	.addra(shmem_a1), .dina(shmem_d1), .wena(shmem_wen1),
+	.addrb(shmem_a2), .doutb(shmem_d2));
+
+// Diagnostic LEDs
+wire rx_led, tx_led, arp_led, arp_led2;
+wire arp_reject = arp_bus[9] & ~arp_bus[10];
+activity  rx_act(.clk(clk), .trigger(rx_packet_start), .led(rx_led));
+activity  tx_act(.clk(clk), .trigger(start_header),    .led(tx_led));
+activity arp_act(.clk(clk), .trigger(arp_reply_req),   .led(arp_led));
+activity arp_err(.clk(clk), .trigger(arp_reject),      .led(arp_led2));
+
+assign debug_data[0]=clk;
+assign leds={tx_led, rx_led, arp_led, arp_led2};
+assign debug=debug_data;
+
+endmodule
+
+// Provide a self-consistent readout of ports
+// This module instantiated within head_tx, which is instantiated above.
+module port_rom(
+        input [4:0] addr,
+        output reg [7:0] data
+);
+
+always @(*) case(addr)
+// Magic port data
+endcase
+
+endmodule

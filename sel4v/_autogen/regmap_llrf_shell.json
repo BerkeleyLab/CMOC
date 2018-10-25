@@ -1,0 +1,178 @@
+{
+    "dsp_chan_keep": {
+        "access": "rw",
+        "addr_width": 0,
+        "base_addr": 156,
+        "data_width": 12,
+        "description": "",
+        "sign": "unsigned"
+    },
+    "dsp_ctlr_ph_reset": {
+        "access": "rw",
+        "addr_width": 0,
+        "base_addr": 157,
+        "data_width": 1,
+        "description": "",
+        "sign": "unsigned"
+    },
+    "dsp_fdbk_core_coarse_scale": {
+        "access": "rw",
+        "addr_width": 0,
+        "base_addr": 158,
+        "data_width": 2,
+        "description": "",
+        "sign": "unsigned"
+    },
+    "dsp_fdbk_core_mp_proc_coeff": {
+        "access": "rw",
+        "addr_width": 2,
+        "base_addr": 136,
+        "data_width": 18,
+        "description": "",
+        "sign": "signed"
+    },
+    "dsp_fdbk_core_mp_proc_lim": {
+        "access": "rw",
+        "addr_width": 2,
+        "base_addr": 140,
+        "data_width": 18,
+        "description": "",
+        "sign": "signed"
+    },
+    "dsp_fdbk_core_mp_proc_ph_offset": {
+        "access": "rw",
+        "addr_width": 0,
+        "base_addr": 159,
+        "data_width": 18,
+        "description": "",
+        "sign": "signed"
+    },
+    "dsp_fdbk_core_mp_proc_sel_en": {
+        "access": "rw",
+        "addr_width": 0,
+        "base_addr": 160,
+        "data_width": 1,
+        "description": "",
+        "sign": "unsigned"
+    },
+    "dsp_fdbk_core_mp_proc_sel_thresh": {
+        "access": "rw",
+        "addr_width": 0,
+        "base_addr": 161,
+        "data_width": 18,
+        "description": "",
+        "sign": "signed"
+    },
+    "dsp_fdbk_core_mp_proc_setmp": {
+        "access": "rw",
+        "addr_width": 2,
+        "base_addr": 144,
+        "data_width": 18,
+        "description": "",
+        "sign": "signed"
+    },
+    "dsp_lp_notch_lp1a_kx": {
+        "access": "rw",
+        "addr_width": 1,
+        "base_addr": 148,
+        "data_width": 18,
+        "description": "",
+        "sign": "signed"
+    },
+    "dsp_lp_notch_lp1a_ky": {
+        "access": "rw",
+        "addr_width": 1,
+        "base_addr": 150,
+        "data_width": 18,
+        "description": "",
+        "sign": "signed"
+    },
+    "dsp_lp_notch_lp1b_kx": {
+        "access": "rw",
+        "addr_width": 1,
+        "base_addr": 152,
+        "data_width": 18,
+        "description": "",
+        "sign": "signed"
+    },
+    "dsp_lp_notch_lp1b_ky": {
+        "access": "rw",
+        "addr_width": 1,
+        "base_addr": 154,
+        "data_width": 18,
+        "description": "",
+        "sign": "signed"
+    },
+    "dsp_modulo": {
+        "access": "rw",
+        "addr_width": 0,
+        "base_addr": 162,
+        "data_width": 12,
+        "description": "",
+        "sign": "unsigned"
+    },
+    "dsp_phase_step": {
+        "access": "rw",
+        "addr_width": 0,
+        "base_addr": 163,
+        "data_width": 32,
+        "description": "",
+        "sign": "unsigned"
+    },
+    "dsp_piezo_piezo_dc": {
+        "access": "rw",
+        "addr_width": 0,
+        "base_addr": 164,
+        "data_width": 16,
+        "description": "",
+        "sign": "unsigned"
+    },
+    "dsp_piezo_sf_consts": {
+        "access": "rw",
+        "addr_width": 3,
+        "base_addr": 128,
+        "data_width": 20,
+        "description": "",
+        "sign": "unsigned"
+    },
+    "dsp_piezo_trace_en": {
+        "access": "w",
+        "addr_width": 7,
+        "base_addr": 0,
+        "data_width": 1,
+        "description": "",
+        "sign": "unsigned"
+    },
+    "dsp_tag": {
+        "access": "rw",
+        "addr_width": 0,
+        "base_addr": 165,
+        "data_width": 8,
+        "description": "",
+        "sign": "unsigned"
+    },
+    "dsp_use_fiber_iq": {
+        "access": "rw",
+        "addr_width": 0,
+        "base_addr": 166,
+        "data_width": 2,
+        "description": "",
+        "sign": "unsigned"
+    },
+    "dsp_wave_samp_per": {
+        "access": "rw",
+        "addr_width": 0,
+        "base_addr": 167,
+        "data_width": 8,
+        "description": "",
+        "sign": "unsigned"
+    },
+    "dsp_wave_shift": {
+        "access": "rw",
+        "addr_width": 0,
+        "base_addr": 168,
+        "data_width": 3,
+        "description": "",
+        "sign": "unsigned"
+    }
+}

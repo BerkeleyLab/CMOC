@@ -1,0 +1,27 @@
+Testing Ethernet-in-FPGA fabric running on Avnet AES-XLX-V5LXT-PCIE50-G
+Connection from 1.2 GHz Thinkpad X40 with Intel 82541GI, through a
+NetGear GS105.  The Thinkpad runs Debian Lenny.
+
+Test program is udprtx, whose average UDP payload per packet is
+1070.5 octets, for an average Ethernet packet size (including
+MAC header and CRC, but not including preamble or IFG) of
+1116.5 octets.  NO_CRC is defined in aggregate.v.
+
+Test used Linux time(1) to measure clock time to send and receive
+100000 packets.  "juggle" is the number of packets in the air.
+
+juggle   time (s)
+  1    10.307  10.197  10.201  10.563   6.824
+  2     5.066   5.068   5.060   5.284   3.595
+  3     3.355   3.493   3.486   3.597   3.214
+  4     2.624   2.594   2.580   2.693   2.632
+  5     2.282   2.270   2.260   2.370   2.185
+  6     2.050   2.056   2.065   2.168   1.958
+  7     1.900   1.909   1.906   2.014   1.908
+  8     1.820   1.854   1.863   1.919   1.894
+  9     1.841   1.794   1.800   1.897   1.879
+ 10     1.836   1.773   1.775   1.883   1.962
+
+No packets were ever observed to be corrupted or lost.
+Last column was taken with the Ethernet switch removed.
+Best results represent over 62 MBytes/sec, or 0.503 Gbit/sec.

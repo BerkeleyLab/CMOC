@@ -1,0 +1,43 @@
+[timestart] 578939
+[size] 1918 1059
+[pos] -1 -1
+*-5.352255 579092 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] client_txu_tb.
+[treeopen] client_txu_tb.mut.
+@29
+client_txu_tb.clk
+@28
+client_txu_tb.req
+client_txu_tb.ack
+client_txu_tb.strobe
+@24
+client_txu_tb.ocnt[10:0]
+@22
+client_txu_tb.data_out[7:0]
+@200
+-mut
+@28
+client_txu_tb.mut.fs
+client_txu_tb.mut.ps
+@22
+client_txu_tb.mut.freq_sr[127:0]
+client_txu_tb.mut.freq_d[7:0]
+@24
+client_txu_tb.mut.cnt_d[10:0]
+client_txu_tb.mut.st[2:0]
+@22
+client_txu_tb.mut.link_a[7:0]
+client_txu_tb.mut.link_d[7:0]
+@28
+client_txu_tb.mut.link_s
+client_txu_tb.mut.dpram_wen
+@200
+-SFP0
+-freq_cnt rx
+@28
+client_txu_tb.mut.fc_rx.f_in
+@22
+client_txu_tb.mut.fc_rx.accum[31:0]
+client_txu_tb.mut.fc_rx.result[31:0]
+[pattern_trace] 1
+[pattern_trace] 0

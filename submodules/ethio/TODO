@@ -1,0 +1,7 @@
+Outside `grep -r TODO .`, this file is intended to maintain wishful features. Order of the list is meaningful.
+* Pass all channels of data to clients, inspite of them not being plotted on the GUI
+* Add a smart lookup of registers
+* Get it to work with python3
+* Build for Android
+* Integrate with EPICS
+* Documentation with sphinx

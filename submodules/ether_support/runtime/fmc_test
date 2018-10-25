@@ -1,0 +1,23 @@
+#!/bin/bash
+echo "Please input target IP address:"
+read target;
+		#export TARGET=131.243.168.80
+		# ad9258 spi command
+                echo "init adc div 2, clock phase 0, dco delay 0x6, disable interleave mode"
+		# enable clock divide by 2
+                printf "sillyoneD\x80\x02\x0B\x00\x00\x00\x01" | nc -q 1 -u $target 3000 | hexdump -v -e '8/1 "%2.2x " "  "' -e '8/1 "%_p" "\n"'
+                printf "sillyoneD\x80\x02\x17\x00\x00\x00\x06" | nc -q 1 -u $target 3000 | hexdump -v -e '8/1 "%2.2x " "  "' -e '8/1 "%_p" "\n"'
+		# CMOS output interleave enable, twos complement
+                printf "sillyoneD\x80\x02\x14\x00\x00\x00\x01" | nc -q 1 -u $target 3000 | hexdump -v -e '8/1 "%2.2x " "  "' -e '8/1 "%_p" "\n"'
+		# transfer register to enable above writes
+                printf "sillyoneD\x80\x02\xFF\x00\x00\x00\x01" | nc -q 1 -u $target 3000 | hexdump -v -e '8/1 "%2.2x " "  "' -e '8/1 "%_p" "\n"'
+		# phase_step_h = 2^20*9/13       = 72937 = 0xb13b1
+		# phase_step_l = (2^20*9%13)*315 =   945 = 0x3b1
+		# generated from fmc-adc/dac_dds_cfg.m for same setting as common_hdl/freq.vh:
+		# phase_step_h = 0x24924
+		# phase_step_l = 0x924
+		# modulo = 1
+		echo "Write regmap x24924924@7, x01@08, xb13b13b1@11, x01@12, x0b@41, x284@42, x06@44, x700@40, use cic"
+                printf "sillyoneD\x08\x00\x07\x24\x92\x49\x24D\x08\x00\x08\x00\x00\x00\x01D\x08\x00\x0b\xb1\x3b\x13\xb1D\x08\x00\x0c\x00\x00\x00\x01D\x08\x00\x0d\xb1\x3b\x13\xb1D\x08\x00\x0e\x00\x00\x00\x01D\x08\x00\x29\x00\x00\x00\x0bD\x08\x00\x2a\x00\x00\x02\x84D\x08\x00\x2c\x00\x00\x00\x06D\x08\x00\x28\x00\x00\x6f\xff" | nc -q 1 -u $target 3000 |hexdump -v -e '8/1 "%2.2x " "  "' -e '8/1 "%_p" "\n"'
+		echo "read out Hello world "
+		printf "sillyoneT\x10@\x00yyyyT\x30@\x00yyyyT\x40@\x01yyyyT\x50@\x02yyyyT\x60@\x03yyyyT\x70@\x04yyyyT\x80@\x0byyyyT\x80@\x2ayyyy" | nc -q 1 -u $target 3000 |hexdump -v -e '8/1 "%2.2x " "  "' -e '8/1 "%_p" "\n"'

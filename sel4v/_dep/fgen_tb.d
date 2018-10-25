@@ -1,0 +1,1 @@
+fgen_tb _dep/fgen_tb.d: fgen_tb.v ../sel4v/fgen.v ../sel4v/isqrt.v ../submodules/common_hdl/addsubg.v ../submodules/common_hdl/cordicg.v ../submodules/common_hdl/cordicg.vh ../submodules/common_hdl/cstageg.v ../submodules/common_hdl/dpram.v 

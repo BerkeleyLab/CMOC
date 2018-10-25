@@ -1,0 +1,26 @@
+*-13.384722 10210 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+@28
+mii_tb.clk
+mii_tb.mut.tick
+mii_tb.MDC
+mii_tb.MDIO
+@200
+-circuit
+@28
+mii_tb.mut.mdio_drive2
+@24
+mii_tb.mut.state[5:0]
+@22
+mii_tb.mut.shift[15:0]
+mii_tb.mut.reg_addr[4:0]
+mii_tb.mut.recv[15:0]
+@200
+-testbench
+@24
+mii_tb.mode[1:0]
+mii_tb.rcnt[4:0]
+mii_tb.bcnt[4:0]
+@28
+mii_tb.mdio_drive_b
+@22
+mii_tb.command_word[13:0]

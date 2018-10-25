@@ -1,0 +1,51 @@
+Want ramps on "everything" esp:
+  set points
+  limits
+
+Add squelch to phase+poffset path in mp_proc, to allow clean start from zero amplitude
+
+Three key steps in sel4:
+  autoset ph_offset (goes with squelch)
+  different clip/wrap behavior for setpoint subtract of mag and phase
+  binary gain of 16 before and 1,8,64 after the multiply
+
+Could almost dispense with the multiply entirely: at total gain of 1024
+(extending BW from 20 Hz to 20 kHz) we only have 8 bits of theoretical
+signal left, and about 3 of those are guard bits.  If this were true
+custom hardware, I'd pick about a 7x4 multiplier plus barrel shifter.
+Well, it might need more bits at lower gains.
+
+Accumulator width set by needing to be robust in the face of input word
+with significant bits in varying position.
+
+Clip levels: want to stay linear in the face of Gaussian noise.
+Hope for +/- 6 sigma, but +/- 4 sigma would probably be OK.
+But also don't want to instantly clip the output amplifier.
+
+Wish for the following gains:
+  proportional gain of 1000 to push cavity from 20 Hz to 20 kHz
+  integral gain of 1000 at  5 kHz when not using low-latency path
+  integral gain of 4000 at 20 kHz when using low-latency path
+  remember each component is operated on at clk/8
+1000*(5e3*2*pi)/(100e6/8) = 2.5
+4000*(20e3*2*pi)/(100e6/8) = 40 /update.  Yowza.
+
+Additional gain from CORDIC setup: amplitude loop always includes
+cg^2/2 = 1.3559.  Phase loop takes phase (as a fraction of 2*pi)
+as input, but Q as output.  So if that element has gain of A, the
+small-signal loop gain is A / (I component) / (2*pi).
+
+The largest proportional phase gain is therefore .. not sure yet. XXX
+
+For now we're going to try 10 kHz cavity, ~110 cycles delay including
+1 MHz bandwidth limiter, 100 kHz closed loop bandwidth, gain of 10.
+The abstract integral term will have gain of 10 at 30 kHz:
+10*(30e3*2*pi)/(100e6/8) = 0.151
+If the path is set up for 64 radians/cycle max with coefficient 2^17,
+coeff is 309.  Proportional gain 10/1024*2^17 = 1280.  These are for
+Amplitude path:
+  proportional  10 /  1024 / (cg^2/2) * (2^17) = 944
+  integral      0.151 / 16 / (cg^2/2) * (2^17) = 912
+Phase path, given amplitude loop locked at 30000
+  proportional  10 /  1024 * 30000 = 293
+  integral      0.151 / 16 * 30000 = 283

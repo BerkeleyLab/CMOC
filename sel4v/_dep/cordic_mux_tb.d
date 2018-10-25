@@ -1,0 +1,1 @@
+cordic_mux_tb _dep/cordic_mux_tb.d: cordic_mux_tb.v ../sel4v/cordic_mux.v ../submodules/common_hdl/addsubg.v ../submodules/common_hdl/cordicg.v ../submodules/common_hdl/cordicg.vh ../submodules/common_hdl/cstageg.v 

@@ -1,0 +1,48 @@
+# Xilinx AC701 (Artix 7 XC7A200T-FGG676)
+
+##------- Pin Constraints -------
+## GTP reference clock
+NET  "SFP_MGT_CLK0_N"            LOC = "AB13" | IOSTANDARD=LVDS_25;  # Bank 213, UG952 Table 1-12
+NET  "SFP_MGT_CLK0_P"            LOC = "AA13" | IOSTANDARD=LVDS_25;  # Bank 213, UG952 Table 1-12
+
+## GTP Mapping
+NET  "SFP_TX_P"                  LOC = "AC10";  # Bank 213, UG952 Table 1-13
+NET  "SFP_TX_N"                  LOC = "AD10";  # Bank 213, UG952 Table 1-13
+NET  "SFP_RX_P"                  LOC = "AC12";  # Bank 213, UG952 Table 1-13
+NET  "SFP_RX_N"                  LOC = "AD12";  # Bank 213, UG952 Table 1-13
+
+NET  "SFP_TX_DISABLE"            LOC = "R18" | IOSTANDARD=LVCMOS33;   # Bank 14, VCCO - FPGA_3V3 - IO_L24P_T3_A01_D17_14
+NET  "SFP_LOS"                   LOC = "R23" | IOSTANDARD=LVCMOS33;   # Bank 14, VCCO - FPGA_3V3 - IO_L24N_T3_A00_D16_14
+
+## SFP_MGT_CLK_SEL0/1
+NET "SFP_MGT_CLK_SEL0"           LOC = "B26" | IOSTANDARD=LVCMOS25; # Bank 16, UG952 Fig 1-17
+NET "SFP_MGT_CLK_SEL1"           LOC = "C24" | IOSTANDARD=LVCMOS25; # Bank 16, UG952 Fig 1-17
+
+# set placement for gt0_gtp_wrapper_i/GTPE2_CHANNEL
+#INST  "gtp_wrap_i/gtwizard_i/gt0_gtwizard_i/gtpe2_i" LOC = GTPE2_CHANNEL_X0Y0;
+INST  "gtp_wrap_i_gtwizard_i_gt0_gtwizard_i_gtpe2_i" LOC = GTPE2_CHANNEL_X0Y0;
+
+# 125-MHz SFP_MGT_CLK0
+NET "SFP_MGT_CLK0_P" TNM_NET = "SFP_MGT_CLK0_P";
+TIMESPEC "TS_SFP_MGT_CLK0_P" = PERIOD "SFP_MGT_CLK0_P" 8.0 ns HIGH 50%;
+NET "SFP_MGT_CLK0_N" TNM_NET = "SFP_MGT_CLK0_N";
+TIMESPEC "TS_SFP_MGT_CLK0_N" = PERIOD "SFP_MGT_CLK0_N" 8.0 ns HIGH 50%;
+
+#GTREFCLK constraint
+NET "gtp_wrap_i_gtrefclk0" TNM_NET= "gtp_wrap_i_gtrefclk0";
+TIMESPEC "TS_gtrefclk0" = PERIOD "gtp_wrap_i_gtrefclk0" 8.0;
+
+# DRP clock constraint
+NET "drp_clk" TNM_NET = "drp_clk";
+TIMESPEC "TS_drp_clk" = PERIOD "drp_clk" 10.0 ns HIGH 50%;
+
+# User Clock Constraints, 62.5MHz
+NET "gtp_tx_clk" TNM_NET = "gtp_tx_clk";
+TIMESPEC "TS_gtp_tx_clk" = PERIOD "gtp_tx_clk" 16.0 ns;
+NET "gtp_tx_clk_90" TNM_NET = "gtp_tx_clk_90";
+#TIMESPEC "TS_gtp_tx_clk_90" = PERIOD "gtp_tx_clk_90" 16.0 ns;
+
+NET "gtp_rx_clk" TNM_NET = "gtp_rx_clk";
+TIMESPEC "TS_gtp_rx_clk" = PERIOD "gtp_rx_clk" 16.0 ns;
+
+TIMESPEC "TS_gtp_tx_clk2" = PERIOD "gtp_tx_clk_90" "TS_gtp_tx_clk" PHASE + 4.0 ns;

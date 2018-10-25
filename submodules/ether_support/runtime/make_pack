@@ -1,0 +1,12 @@
+(printf "0123456789abcdef"
+while read add val rest; do
+  case "$add" in
+       0x*) printf "%8.8x%8.8x" $add $val
+  esac
+done <$1) | perl -e '$_=<>;$a=pack("H*",$_);print "$a";'
+
+# check that this works:
+#  sh make_pack reg_default | hexdump -v -e '8/1 "%2.2x " "\n"'
+
+# actual use:
+#  sh make_pack reg_default | nc -w 2 -u 192.168.7.4 3000 | hexdump -v -e '8/1 "%2.2x " "\n"'

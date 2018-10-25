@@ -1,0 +1,25 @@
+#!/bin/sh
+
+# Downloads bitfile to an SP601 board in batch, using Impact from Xilinx ISE
+# USB cable must be plugged into "USB JTAG" J10
+# J4 (FMC JTAG) suould be in the 1-2 position, to exclude FMC from chain
+
+if [ ! -r "${1}" ]; then
+  echo "Usage: $0 filename.bit" >&2
+  exit 1
+fi
+
+set -e
+test -r $XILINX_SETTINGS && . $XILINX_SETTINGS
+test -d $XILINX
+
+# don't use -v switch to verify chip, since I don't create a .msk file.
+# See Xilinx Answer Record 22228.
+echo "
+setMode -bs
+setCable -port auto
+Identify
+assignFile -p 1 -file \"${1}\"
+Program -p 1 -e -parallel -master -internalClk -clkFreq 40 -defaultVersion 0
+quit" | impact -batch
+echo

@@ -1,0 +1,129 @@
+[DONE] test the nomangle (0x7a) and an_bypass (0x79) bits
+[DONE] write grab2k.c
+[DONE] untangle some grabbed serdes packets
+[DONE] trace after gmii_fifo?
+[DONE] trigger trace on non-repeat of data pattern, read out trigger status
+[DONE] option to bypass autoconfiguration
+[DONE] target Xilinx SP601 and/or SP605 (Spartan-6) boards
+[DONE] target Virtex-5 GTP (SFP)
+[DONE] automated build of chain code
+[DONE] insert serial monitor (mii and ddmi) code
+
+capture autonegotiation Rx message - requires sync to TX_DISABLE?
+work with Matt to make ether_mgt_fllrf.bit   check TXPOLARITY0
+automated creation of port_rom.v
+move serdes support to TBI
+finish/restore crc_check (rename crc_queue, support dynamic latency option?)
+handle full and empty in mem_gateway.v
+test network compatibility with Mac and PC
+write code that copies configuration from Flash to macip_config
+research all XXX
+
+consider stricter test for aggregate_check and arp_check
+consider pipelining addr_r and oword write enables in mem_gateway.v
+deal with readmemh warning when running aggregate_tb
+write PROM programmer client (SPI, BPI?)
+write IPMI client (RMCP)
+write PPTP client
+add multicast (http://en.wikipedia.org/wiki/IP_multicast) and IGMPv2 (rfc2236) support, uses router alert option (rfc2113) yuck
+add some limited ICMP support: dest unreachable, parameter problem, echo reply?
+strong authentication with CMAC
+  http://en.wikipedia.org/wiki/CMAC
+  rfc4493
+authentication + encryption with OCB-AES (patented)
+  http://en.wikipedia.org/wiki/OCB_mode
+  http://www.cs.ucdavis.edu/~rogaway/ocb/ocb-faq.htm
+set up Makefile targets for tcpdump -r and -w
+  http://wiki.wireshark.org/Development/LibpcapFileFormat
+factor udpip away from Ethernet in assemble_eth
+make ARP conditional code
+homogenize coding strategy in all the packet rx and tx routines
+consider 100Mb support -- gate everything?
+still plenty of room to improve and expand test benches and example clients
+check Rx UDP checksum
+consider more flexible scheduler than strict priority
+consider pushing 12 octets (source MAC, source IP, source UDP port) through clients
+  (this would eliminate the single-host restriction)
+
+first results from client_txu:
+ 07ff e61b  134211099  124993826 Hz  freq_rx
+ 07ff f611  134215185  124997631 Hz  freq_tx
+ 07ff df83  134209411  124992254 Hz  freq_gr
+ e001 beec
+lacr_rx = 0xe001   three reserved bits set, no ACK, Next Page???
+SFP0_MOD0 and SFP1_MOD1 are both 0, means pulled-down = present?
+  garbage data from sfp_ddmi, see foo0.dat and foo1.dat
+  hexdump -v -e '8/1 "%2.2x " "\n"' foo1.dat
+  hexdump -v -e '8/1 "%2.2x " "  "' -e '8/1 "%_p" "\n"' bar2 | less
+First 96 bytes of 0xA0 EEPROM defined by SFP MSA.  Next 32 are Vendor-specific.
+Finisar optical device uses 0xA2 for real-time measurement, this is somehow
+  standardized, the existence of which is coded in rom location 92.
+  Interesting data is in the first 120 bytes.  finisar-an-2030.pdf
+Avago ABCU-57x0RZ uses 0xAC for real-time measurement.  Interesting data
+  is in the first 32 bytes.  abcu-57x0rz.pdf
+  Memory map description lines up with dp83865.pdf, and those chips are (?)
+  strapped to address 0x01 on Avnet board.
+Document sfp_ddmi output - ack is lsb of 9-bit output
+I2C chip addresses to dump:  http://en.wikipedia.org/wiki/I%C2%B2C
+  Optical SFP: 0xA0 and 0xA2
+  Copper SFP: 0xA0 and 0xAC
+  SMBus DIMM SPD: 0xA0 through 0xAE, depending on address pin strapping
+    (Checksum of bytes 0-62 concept matches SFP MSA, but other semantics
+    are incompatible: http://en.wikipedia.org/wiki/Serial_Presence_Detect)
+  FMC: 0xA0, 0xA2, 0xA4, or 0xA6, depending on Geographic Address pin strapping
+  Monitor DDC2B: 0xA0
+  (Ethernet MII is not I2C, http://en.wikipedia.org/wiki/Management_Data_Input/Output)
+Microchip 24AA02/24LC02B calls first 4 address bits "control code" 0xA,
+  next three "block select bits" which it ignores, then the R/W bit.
+
+Set to look at SFP0, alt address 3'b110
+  printf "sillyoneDD0\167xxx\142TT00yyyyTT01yyyyTT02yyyyTT03yyyy" | nc -q 1 -u 192.168.8.2 3000
+Set to look at SFP1, alt address 3'b001
+  printf "sillyoneDD0\167xxx\023TT03yyyy" | nc -q 1 -u 192.168.8.2 3000
+
+Five readouts from Picolight/Finisar
+(echo "ibase=16"; dd bs=1 skip=297 count=10 if=bar1 2>/dev/null | hexdump -v -e '2/1 "%2.2X" "\n"') | bc
+
+# set an_bypass
+printf "sillyoneDD0\171xxx\001TT@3yyyy" | nc -q 1 -u 192.168.8.2 3000 | hexdump
+# request trace, without trace_nowait
+printf "sillyoneDD0\170xxx\040TT@3yyyy" | nc -q 1 -u 192.168.8.2 3000 | hexdump
+# read out Goodbye world! (acq complete) or Goodbye David! (acq still pending)
+printf "sillyoneDD@1xxxxTT@0yyyyTT@1yyyyTT@2yyyyTT@3yyyy" | nc -q 1 -u 192.168.8.2 3000 |hexdump -v -e '8/1 "%2.2x " "  "' -e '8/1 "%_p" "\n"'
+# read out first 8 words of trace
+printf "sillyoneDD@1xxxxTT00yyyyTT01yyyyTT02yyyyTT03yyyyTT04yyyyTT05yyyyTT06yyyyTT07yyyy" | nc -q 1 -u 192.168.8.2 3000 | hexdump -v -e '8/1 "%2.2x " "\n"'
+
+
+73 69 6c 6c 79 6f 6e 65
+44 44 30 31 78 78 78 78
+54 54 30 30 43 21 01 bc  K28.5
+54 54 30 31 43 21 00 50  D16.2
+54 54 30 32 43 21 01 bc  K28.5
+54 54 30 33 43 21 00 50  D16.2
+54 54 30 34 43 21 01 bc  K28.5
+54 54 30 35 43 21 00 50  D16.2
+54 54 30 36 43 21 01 bc  K28.5
+54 54 30 37 43 21 00 50  D16.2
+
+
+Seifert p. 251: Auto-Negotiation messages are sent as a series of
+  /K28.5/D21.5/config-message/
+  /K28.5/D2.2/config-message/
+  /K28.5/D21.5/config-message/
+  /K28.5/D2.2/config-message/
+  ...
+This continues until the Auto-Negotiation process completes, with
+each link partner learning and acknowledging the others' capabilities and
+setting the configuration appropriately (or detecting an error condition).
+
+I see
+ bc
+ b5
+ 05
+ 80
+ bc
+ 42
+ 05
+ 80
+Am I confused about order of data bits?
+

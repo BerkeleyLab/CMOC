@@ -1,0 +1,26 @@
+[timestart] 0
+[size] 1000 600
+[pos] -1 -1
+*-4.822826 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] upconv2_tb.
+[treeopen] upconv2_tb.dut.
+[sst_width] 210
+[signals_width] 134
+[sst_expanded] 1
+[sst_vpaned_height] 154
+@28
+upconv2_tb.iq_flag
+@420
+upconv2_tb.lo1[17:0]
+upconv2_tb.lo2[17:0]
+upconv2_tb.iq_data[17:0]
+upconv2_tb.dac1[15:0]
+upconv2_tb.dac2[15:0]
+@200
+-upconv_1
+@420
+upconv2_tb.dut.upconv_1.prod2[17:0]
+upconv2_tb.dut.upconv_1.filt1[17:0]
+upconv2_tb.dut.upconv_1.interp1[18:0]
+[pattern_trace] 1
+[pattern_trace] 0

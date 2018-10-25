@@ -1,0 +1,45 @@
+`define LB_HI 13
+`define ADDR_HIT_cav4_elec_dot_0_k_out (lb_addr[`LB_HI:10]==0) // cav4_elec bitwidth: 10, base_addr: 0
+`define ADDR_HIT_cav4_elec_dot_1_k_out (lb_addr[`LB_HI:10]==1) // cav4_elec bitwidth: 10, base_addr: 1024
+`define ADDR_HIT_cav4_elec_dot_2_k_out (lb_addr[`LB_HI:10]==2) // cav4_elec bitwidth: 10, base_addr: 2048
+`define ADDR_HIT_cav4_elec_outer_prod_0_k_out (lb_addr[`LB_HI:10]==3) // cav4_elec bitwidth: 10, base_addr: 3072
+`define ADDR_HIT_cav4_elec_outer_prod_1_k_out (lb_addr[`LB_HI:10]==4) // cav4_elec bitwidth: 10, base_addr: 4096
+`define ADDR_HIT_cav4_elec_outer_prod_2_k_out (lb_addr[`LB_HI:10]==5) // cav4_elec bitwidth: 10, base_addr: 5120
+`define ADDR_HIT_noise_couple_k_out (lb_addr[`LB_HI:10]==6) // outer_prod bitwidth: 10, base_addr: 6144
+`define ADDR_HIT_piezo_couple_k_out (lb_addr[`LB_HI:10]==7) // outer_prod bitwidth: 10, base_addr: 7168
+`define ADDR_HIT_resonator_prop_const (lb_addr[`LB_HI:10]==8) // resonator bitwidth: 10, base_addr: 8192
+`define MIRROR_WIDTH 6
+`define ADDR_HIT_MIRROR (lb_addr[`LB_HI:`MIRROR_WIDTH]==144)
+`define ADDR_HIT_cav4_elec_drive_couple_out_coupling (lb_addr[`LB_HI:1]==4608) // cav4_elec bitwidth: 1, base_addr: 9216
+`define ADDR_HIT_cav4_elec_drive_couple_out_phase_offset (lb_addr[`LB_HI:1]==4609) // cav4_elec bitwidth: 1, base_addr: 9218
+`define ADDR_HIT_cav4_elec_mode_0_out_couple_out_coupling (lb_addr[`LB_HI:1]==4610) // cav4_elec bitwidth: 1, base_addr: 9220
+`define ADDR_HIT_cav4_elec_mode_0_out_couple_out_phase_offset (lb_addr[`LB_HI:1]==4611) // cav4_elec bitwidth: 1, base_addr: 9222
+`define ADDR_HIT_cav4_elec_mode_1_out_couple_out_coupling (lb_addr[`LB_HI:1]==4612) // cav4_elec bitwidth: 1, base_addr: 9224
+`define ADDR_HIT_cav4_elec_mode_1_out_couple_out_phase_offset (lb_addr[`LB_HI:1]==4613) // cav4_elec bitwidth: 1, base_addr: 9226
+`define ADDR_HIT_cav4_elec_mode_2_out_couple_out_coupling (lb_addr[`LB_HI:1]==4614) // cav4_elec bitwidth: 1, base_addr: 9228
+`define ADDR_HIT_cav4_elec_mode_2_out_couple_out_phase_offset (lb_addr[`LB_HI:1]==4615) // cav4_elec bitwidth: 1, base_addr: 9230
+`define ADDR_HIT_a_cav_offset (lb_addr[`LB_HI:0]==9232) // adc_em bitwidth: 0, base_addr: 9232
+`define ADDR_HIT_a_for_offset (lb_addr[`LB_HI:0]==9233) // adc_em bitwidth: 0, base_addr: 9233
+`define ADDR_HIT_a_rfl_offset (lb_addr[`LB_HI:0]==9234) // adc_em bitwidth: 0, base_addr: 9234
+`define ADDR_HIT_amp_lp_bw (lb_addr[`LB_HI:0]==9235) // lp_pair bitwidth: 0, base_addr: 9235
+`define ADDR_HIT_beam_modulo (lb_addr[`LB_HI:0]==9236) // beam1 bitwidth: 0, base_addr: 9236
+`define ADDR_HIT_beam_phase_init (lb_addr[`LB_HI:0]==9237) // beam1 bitwidth: 0, base_addr: 9237
+`define ADDR_HIT_beam_phase_step (lb_addr[`LB_HI:0]==9238) // beam1 bitwidth: 0, base_addr: 9238
+`define ADDR_HIT_cav4_elec_freq_0_coarse_freq (lb_addr[`LB_HI:0]==9239) // cav4_elec bitwidth: 0, base_addr: 9239
+`define ADDR_HIT_cav4_elec_freq_1_coarse_freq (lb_addr[`LB_HI:0]==9240) // cav4_elec bitwidth: 0, base_addr: 9240
+`define ADDR_HIT_cav4_elec_freq_2_coarse_freq (lb_addr[`LB_HI:0]==9241) // cav4_elec bitwidth: 0, base_addr: 9241
+`define ADDR_HIT_cav4_elec_mode_0_beam_coupling (lb_addr[`LB_HI:0]==9242) // cav4_elec bitwidth: 0, base_addr: 9242
+`define ADDR_HIT_cav4_elec_mode_0_bw (lb_addr[`LB_HI:0]==9243) // cav4_elec bitwidth: 0, base_addr: 9243
+`define ADDR_HIT_cav4_elec_mode_0_drive_coupling (lb_addr[`LB_HI:0]==9244) // cav4_elec bitwidth: 0, base_addr: 9244
+`define ADDR_HIT_cav4_elec_mode_1_beam_coupling (lb_addr[`LB_HI:0]==9245) // cav4_elec bitwidth: 0, base_addr: 9245
+`define ADDR_HIT_cav4_elec_mode_1_bw (lb_addr[`LB_HI:0]==9246) // cav4_elec bitwidth: 0, base_addr: 9246
+`define ADDR_HIT_cav4_elec_mode_1_drive_coupling (lb_addr[`LB_HI:0]==9247) // cav4_elec bitwidth: 0, base_addr: 9247
+`define ADDR_HIT_cav4_elec_mode_2_beam_coupling (lb_addr[`LB_HI:0]==9248) // cav4_elec bitwidth: 0, base_addr: 9248
+`define ADDR_HIT_cav4_elec_mode_2_bw (lb_addr[`LB_HI:0]==9249) // cav4_elec bitwidth: 0, base_addr: 9249
+`define ADDR_HIT_cav4_elec_mode_2_drive_coupling (lb_addr[`LB_HI:0]==9250) // cav4_elec bitwidth: 0, base_addr: 9250
+`define ADDR_HIT_cav4_elec_modulo (lb_addr[`LB_HI:0]==9251) // cav4_elec bitwidth: 0, base_addr: 9251
+`define ADDR_HIT_cav4_elec_phase_step (lb_addr[`LB_HI:0]==9252) // cav4_elec bitwidth: 0, base_addr: 9252
+`define ADDR_HIT_compr_sat_ctl (lb_addr[`LB_HI:0]==9253) // a_compress bitwidth: 0, base_addr: 9253
+`define ADDR_HIT_prng_iva (lb_addr[`LB_HI:0]==9254) // prng bitwidth: 0, base_addr: 9254
+`define ADDR_HIT_prng_ivb (lb_addr[`LB_HI:0]==9255) // prng bitwidth: 0, base_addr: 9255
+`define ADDR_HIT_prng_random_run (lb_addr[`LB_HI:0]==9256) // prng bitwidth: 0, base_addr: 9256

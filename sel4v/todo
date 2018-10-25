@@ -1,0 +1,8 @@
+[OK] fix test benches
+[OK] bug implicit definition of wire 'lp2_ky_addr'
+[OK] enable hierarchy
+[OK] restore broken test benches and simulation runs for sel4 figures
+address map management
+bring fgen into address management
+
+Gang: note that ADDR_HIT_foo are defined in four _tb.v files as well as addr_map.vh

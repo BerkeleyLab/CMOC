@@ -1,0 +1,3 @@
+PART = xc7a200t-fbg676-2
+CLOCK_PIN = R3
+FPGA_FAMILY = 7series

@@ -1,0 +1,9 @@
+                           reg     LUT  RAMB36E1 RAMB18E1  DSP48E1
+larger_shell_rgmii_ac701  20285   19946    22        9        51
+llrf_shell                    ?    6504     0        0        20
+vmod1                     11479   11699     2        8        31
+circle_buf                    ?       ?    16        0         0
+remainder                     ?    1743     4        1         0
+
+XC7A100T                 126800   63400   135      270       240
+XC7A200T (AC701)         269200  134600   365      730       740

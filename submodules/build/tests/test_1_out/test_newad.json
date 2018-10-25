@@ -1,0 +1,266 @@
+{
+    "adc_mmcm": {
+        "access": "rw",
+        "addr_width": 0,
+        "base_addr": 8390656,
+        "data_width": 2,
+        "description": "description of adc_mmcm in top-level",
+        "sign": "unsigned"
+    },
+    "beam_0_modulo": {
+        "access": "rw",
+        "addr_width": 0,
+        "base_addr": 8390657,
+        "data_width": 12,
+        "description": "",
+        "sign": "unsigned"
+    },
+    "beam_0_phase_init": {
+        "access": "rw",
+        "addr_width": 0,
+        "base_addr": 8390658,
+        "data_width": 12,
+        "description": "",
+        "sign": "unsigned"
+    },
+    "beam_0_phase_step": {
+        "access": "rw",
+        "addr_width": 0,
+        "base_addr": 8390659,
+        "data_width": 12,
+        "description": "{LINR:\"SLOPE\", ESLO:\"5.9e-9\"}",
+        "sign": "unsigned"
+    },
+    "beam_1_modulo": {
+        "access": "rw",
+        "addr_width": 0,
+        "base_addr": 8390660,
+        "data_width": 12,
+        "description": "",
+        "sign": "unsigned"
+    },
+    "beam_1_phase_init": {
+        "access": "rw",
+        "addr_width": 0,
+        "base_addr": 8390661,
+        "data_width": 12,
+        "description": "",
+        "sign": "unsigned"
+    },
+    "beam_1_phase_step": {
+        "access": "rw",
+        "addr_width": 0,
+        "base_addr": 8390662,
+        "data_width": 12,
+        "description": "{LINR:\"SLOPE\", ESLO:\"5.9e-9\"}",
+        "sign": "unsigned"
+    },
+    "cavity_0_cav4_elec_freq_0_add_write_enable_test": {
+        "access": "rw",
+        "addr_width": 0,
+        "base_addr": 8390663,
+        "data_width": 32,
+        "description": "",
+        "sign": "unsigned"
+    },
+    "cavity_0_cav4_elec_freq_0_signed_large_port": {
+        "access": "rw",
+        "addr_width": 0,
+        "base_addr": 8390664,
+        "data_width": 28,
+        "description": "",
+        "sign": "signed"
+    },
+    "cavity_0_cav4_elec_freq_0_single_cycle": {
+        "access": "rw",
+        "addr_width": 0,
+        "base_addr": 8390665,
+        "data_width": 2,
+        "description": "",
+        "sign": "unsigned"
+    },
+    "cavity_0_cav4_elec_freq_1_add_write_enable_test": {
+        "access": "rw",
+        "addr_width": 0,
+        "base_addr": 8390666,
+        "data_width": 32,
+        "description": "",
+        "sign": "unsigned"
+    },
+    "cavity_0_cav4_elec_freq_1_signed_large_port": {
+        "access": "rw",
+        "addr_width": 0,
+        "base_addr": 8390667,
+        "data_width": 28,
+        "description": "",
+        "sign": "signed"
+    },
+    "cavity_0_cav4_elec_freq_1_single_cycle": {
+        "access": "rw",
+        "addr_width": 0,
+        "base_addr": 8390668,
+        "data_width": 2,
+        "description": "",
+        "sign": "unsigned"
+    },
+    "cavity_0_cav4_elec_freq_2_add_write_enable_test": {
+        "access": "rw",
+        "addr_width": 0,
+        "base_addr": 8390669,
+        "data_width": 32,
+        "description": "",
+        "sign": "unsigned"
+    },
+    "cavity_0_cav4_elec_freq_2_signed_large_port": {
+        "access": "rw",
+        "addr_width": 0,
+        "base_addr": 8390670,
+        "data_width": 28,
+        "description": "",
+        "sign": "signed"
+    },
+    "cavity_0_cav4_elec_freq_2_single_cycle": {
+        "access": "rw",
+        "addr_width": 0,
+        "base_addr": 8390671,
+        "data_width": 2,
+        "description": "",
+        "sign": "unsigned"
+    },
+    "cavity_0_cav4_elec_modulo": {
+        "access": "rw",
+        "addr_width": 0,
+        "base_addr": 8390672,
+        "data_width": 12,
+        "description": "",
+        "sign": "unsigned"
+    },
+    "cavity_0_cav4_elec_phase_step": {
+        "access": "rw",
+        "addr_width": 0,
+        "base_addr": 8390673,
+        "data_width": 32,
+        "description": "",
+        "sign": "unsigned"
+    },
+    "cavity_0_cav4_elec_trace_reset_we": {
+        "access": "rw",
+        "addr_width": 0,
+        "base_addr": 8390674,
+        "data_width": 1,
+        "description": "",
+        "sign": "unsigned"
+    },
+    "cavity_0_piezo_couple_k_out": {
+        "access": "w",
+        "addr_width": 10,
+        "base_addr": 8388608,
+        "data_width": 18,
+        "description": "",
+        "sign": "signed"
+    },
+    "cavity_1_cav4_elec_freq_0_add_write_enable_test": {
+        "access": "rw",
+        "addr_width": 0,
+        "base_addr": 8390675,
+        "data_width": 32,
+        "description": "",
+        "sign": "unsigned"
+    },
+    "cavity_1_cav4_elec_freq_0_signed_large_port": {
+        "access": "rw",
+        "addr_width": 0,
+        "base_addr": 8390676,
+        "data_width": 28,
+        "description": "",
+        "sign": "signed"
+    },
+    "cavity_1_cav4_elec_freq_0_single_cycle": {
+        "access": "rw",
+        "addr_width": 0,
+        "base_addr": 8390677,
+        "data_width": 2,
+        "description": "",
+        "sign": "unsigned"
+    },
+    "cavity_1_cav4_elec_freq_1_add_write_enable_test": {
+        "access": "rw",
+        "addr_width": 0,
+        "base_addr": 8390678,
+        "data_width": 32,
+        "description": "",
+        "sign": "unsigned"
+    },
+    "cavity_1_cav4_elec_freq_1_signed_large_port": {
+        "access": "rw",
+        "addr_width": 0,
+        "base_addr": 8390679,
+        "data_width": 28,
+        "description": "",
+        "sign": "signed"
+    },
+    "cavity_1_cav4_elec_freq_1_single_cycle": {
+        "access": "rw",
+        "addr_width": 0,
+        "base_addr": 8390680,
+        "data_width": 2,
+        "description": "",
+        "sign": "unsigned"
+    },
+    "cavity_1_cav4_elec_freq_2_add_write_enable_test": {
+        "access": "rw",
+        "addr_width": 0,
+        "base_addr": 8390681,
+        "data_width": 32,
+        "description": "",
+        "sign": "unsigned"
+    },
+    "cavity_1_cav4_elec_freq_2_signed_large_port": {
+        "access": "rw",
+        "addr_width": 0,
+        "base_addr": 8390682,
+        "data_width": 28,
+        "description": "",
+        "sign": "signed"
+    },
+    "cavity_1_cav4_elec_freq_2_single_cycle": {
+        "access": "rw",
+        "addr_width": 0,
+        "base_addr": 8390683,
+        "data_width": 2,
+        "description": "",
+        "sign": "unsigned"
+    },
+    "cavity_1_cav4_elec_modulo": {
+        "access": "rw",
+        "addr_width": 0,
+        "base_addr": 8390684,
+        "data_width": 12,
+        "description": "",
+        "sign": "unsigned"
+    },
+    "cavity_1_cav4_elec_phase_step": {
+        "access": "rw",
+        "addr_width": 0,
+        "base_addr": 8390685,
+        "data_width": 32,
+        "description": "",
+        "sign": "unsigned"
+    },
+    "cavity_1_cav4_elec_trace_reset_we": {
+        "access": "rw",
+        "addr_width": 0,
+        "base_addr": 8390686,
+        "data_width": 1,
+        "description": "",
+        "sign": "unsigned"
+    },
+    "cavity_1_piezo_couple_k_out": {
+        "access": "w",
+        "addr_width": 10,
+        "base_addr": 8389632,
+        "data_width": 18,
+        "description": "",
+        "sign": "signed"
+    }
+}

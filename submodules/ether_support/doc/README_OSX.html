@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>README_OS_X</title></head><body>
+<h1>Simulating Verilog Ethernet on OS X</h1>
+<p>
+With a little effort the simulated network example can be made to work on OS X.<br>
+<h2>Preliminary</h2>
+<p>
+Install the TAP network interface from the prebuilt package (you need install only the TAP portion of the package):<br>
+&nbsp;&nbsp;&nbsp; <a href="http://tuntaposx.sourceforge.net/">http://tuntaposx.sourceforge.net/</a><br>
+or from the project source:<br>
+&nbsp;&nbsp;&nbsp; git clone git://tuntaposx.git.sourceforge.net/gitroot/tuntaposx/tuntaposx <br>
+or from 'Ports':<br>
+&nbsp;&nbsp;&nbsp; port install tuntaposx<br>
+<p>
+The OS X TAP network interface has some 'features' that make it a little less convenient than the Linux equivalent:
+<ul>
+  <li>There is no mechanism to automatically allocate a free TAP network
+ interface. Instead, you must choose one explicitly and pass that
+value to the simulator using the VVP_NETWORK_NAME environment variable.
+  <li>The network interface is picky about being opened only once, so it
+is necessary to configure the network interface (ifconfig) after the
+simulation has started. It can't be configured earlier, since the
+network interface does not exist until a process opens it.
+  </li>
+</ul>
+
+<h2>Usage</h2>
+<p>
+The following is a step-by-step guide to starting a simulator
+session. You'll need to replace the values in angle brackets with
+settings appropriate to your
+situation. The first two steps need be done only once per TAP network interface.
+<ol>
+  <li>Choose a TAP network interface to assign to the VVP_NETWORK_NAME
+environment variable. The simulator will default to "tap0" if this
+ environment variable is not set.<br>
+    <span style="font-family: monospace;">&nbsp;&nbsp;&nbsp; export VVP_NETWORK_NAME=tap1</span>
+  <li>As root, provide access to the chosen TAP network interface device entry.<br>
+    <span style="font-family: monospace;"></span><span style="font-family: monospace;">&nbsp;&nbsp;&nbsp; sudo chmod 666 /dev/$VVP_NETWORK_NAME</span><br>
+or<br>
+    <span style="font-family: monospace;">&nbsp;&nbsp;&nbsp; chown &lt;your_user_id&gt; /dev/$VVP_NETWORK_NAME</span>
+  <li>Start the simulator. You'll see complaints about inability to read from the TAP network interface.
+  <li>As root, configure the TAP network interface and bring it up.<br>
+    <span style="font-family: monospace;">&nbsp;&nbsp;&nbsp; sudo ifconfig $VVP_NETWORK_NAME &lt;network_address_on_same_network_as_simulation&gt; up</span><br>
+You should see the simulation begin spewing a line for each simulation
+clock step. The simulated network device can now be treated as any
+other.
+  </li>
+</ol>
+</body></html>

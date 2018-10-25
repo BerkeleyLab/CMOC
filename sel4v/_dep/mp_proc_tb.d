@@ -1,0 +1,1 @@
+mp_proc_tb _dep/mp_proc_tb.d: _autogen/addr_map_mp_proc_tb.vh _autogen/mp_proc_tb_auto.vh mp_proc_tb.v ../sel4v/mp_proc.v ../sel4v/pdetect2.v ../sel4v/xy_pi_clip.v ../submodules/common_hdl/dpram.v ../submodules/common_hdl/reg_delay.v 

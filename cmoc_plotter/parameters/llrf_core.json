@@ -1,0 +1,57 @@
+{
+    "cryomodule":
+    {
+        "name": "CRYO",
+        "desc": "Cryomodule simulator",
+        "regmap": {}
+    },
+    "llrf_shell":
+    {
+        "name": "SHELL",
+        "desc": "LLRF SHELL registers",
+        "regmap":
+        {
+            "DSP_CONFIG_ROM": {
+                "access": "r",
+                "addr_width": 0,
+                "base_addr": 0,
+                "data_width": 8,
+                "sign": "unsigned"
+            },
+            "DSP_CBUF_FLIP": {
+                "access": "w",
+                "addr_width": 0,
+                "base_addr": "0x3800",
+                "data_width": 1,
+                "sign": "unsigned"
+            },
+            "DSP_CBUF_MODE": {
+                "access": "rw",
+                "addr_width": 0,
+                "base_addr": "0x22a",
+                "data_width": 3,
+                "sign": "unsigned"
+            },
+            "DSP_SLOW":           "0x2011",
+            "DSP_CBUF": {
+                "access": "r",
+                "addr_width": 0,
+                "base_addr": "0x4000",
+                "data_width": 16,
+                "sign": "signed"
+            }
+        }
+    },
+    "core_llrf":
+    {
+        "name": "LLRF_",
+        "desc": "assembly of llrf cores",
+        "cores":
+        [
+            {"name":    "llrf_shell",
+             "base":    "0x10000"},
+            {"name":    "cryomodule",
+             "base":    "0"}
+        ]
+    }
+}

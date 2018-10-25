@@ -1,0 +1,58 @@
+Data transfer has to be designed such that the real-time FPGA can
+interact with a non-real-time computer and/or network.  There is
+the additional complication of multiple clock domains in the FPGA.
+
+In larger.v we focus on the controller in the clk1x domain, not the
+simulator in the clk2x domain.  All reads and writes originate in the
+lb_clk domain.
+
+Writes are easy: they propagate through data_xdomain.  The rule is
+"clk_out must be more than twice as fast as the gate_in rate."
+and our Ethernet memory gateway takes 8 cycles at 125 MHz to
+create one local bus write cycle.  So we just have to stick to
+clk1x faster than 31.25 MHz.
+
+This design pulls all reads through dual port RAM, embedded within
+circle_buf and slow_bridge.  The subtle part of the design is the
+control and handshaking so that data is always self-consistent and
+properly time stamped.  The status bit mediating this process is
+circle_data_ready.  The FPGA makes this bit available to the computer
+by inserting it onto bit 8 of data bus during reads of the configuration
+memory, that otherwise just fills bits [7:0].
+
+When circle_data_ready is asserted, a 8192-long buffer of 16-bit data
+is available for reading via addresses 4000 to 5fff.  During this
+data transfer process for the "ping" buffer, the "pong" half of the
+memory inside circle_buf is filling.   Once the computer has read all
+that it wants from the "ping" buffer, it has to signal that it's ready
+for buffers to flip.  It does that by writing to address 0x3800
+(buf_flip).
+
+When the "pong" memory fills up, and the "ping" memory read has not
+been completed, that buffer is discarded (otherwise it would become
+stale).  The "pong" memory starts to fill with new data.  Thus there
+is always some delay between a buf_flip event and new valid data
+being available.  In that interval, circle_data_ready is de-asserted.
+
+In the same time window that data can be read from circle_buf, as
+indicated by an asserted circle_data_ready, the status for that data
+should be readable from slow_bridge.  That includes status captured
+at buffer start (tag_old), at buffer end (tag_now, timestamp), and
+compiled for the duration of the buffer (adc min/max).
+
+The buf_sync output from circle_buf indicates a buffer change, used as
+the slow_snap signal to the slow chain and to slow_bridge.  This triggers
+a snapshot of slow-chain data, which slow_bridge then transfers into its
+dual port RAM.  This single-cycle event happens every time the "pong" buffer
+fills within circle_buf, even those fills that are discarded because of a
+not-yet-acknowledged "ping" buffer.  This step is important for slow_snap,
+to mark the beginning of the buffer.  But the buf_sync is gated (internal
+to circle_buf) for the transfer trigger to slow_bridge, to keep this unused
+data out of the dual-port RAM, that is still marked as valid with the old
+contents.  Data is available shortly after this trigger.
+
+If you raced the transfer process in slow_bridge, you might "win" and get
+stale or corrupt data.  That module waits 16 DSP cycles and then transfers
+one octet per DSP cycle.  A second status bit, slow_data_ready, is provided
+for your convenience to indicate the transfer is complete and slow data is
+ready.  It's bit 9, right next to bit 8 for circle_data_ready.

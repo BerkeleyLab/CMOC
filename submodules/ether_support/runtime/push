@@ -1,0 +1,4 @@
+file=${1:-reg_default}
+ip=${2:-192.168.8.2}
+#ip=${2:-192.168.111.73}
+sh make_pack $file | nc -w 2 -u $ip 3000 | hexdump -v -e '8/1 "%2.2x " "\n"'

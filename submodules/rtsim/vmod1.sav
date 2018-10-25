@@ -1,0 +1,122 @@
+[timestart] 5401
+[size] 1363 759
+[pos] 430 35
+*-5.847085 5583 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] vmod1_tb.
+[treeopen] vmod1_tb.v.
+[treeopen] vmod1_tb.v.cav4_elec.
+[treeopen] vmod1_tb.v.cav4_elec.cav_mode[0].
+[treeopen] vmod1_tb.v.cav4_elec.cav_mode[0].mode.
+[sst_width] 320
+[signals_width] 244
+[sst_expanded] 1
+[sst_vpaned_height] 258
+@8024
+vmod1_tb.lo_phase[5:0]
+@8420
+vmod1_tb.cosd[17:0]
+@28
+vmod1_tb.cic_sampled
+@22
+vmod1_tb.control_addr[14:0]
+vmod1_tb.control_data[31:0]
+@28
+vmod1_tb.control_write
+@420
+vmod1_tb.drive[17:0]
+vmod1_tb.a_field[15:0]
+@8420
+vmod1_tb.a_forward[15:0]
+@420
+vmod1_tb.a_reflect[15:0]
+vmod1_tb.piezo[17:0]
+@200
+-vmod1
+@420
+vmod1_tb.v.field[17:0]
+vmod1_tb.v.forward[17:0]
+vmod1_tb.v.reflect[17:0]
+@24
+vmod1_tb.v.beam_timing[11:0]
+@200
+-cav4_elec
+@8024
+vmod1_tb.v.cav4_elec.lo_phase[18:0]
+@200
+-pi mode
+@420
+vmod1_tb.v.cav4_elec.cav_mode[0].d_result[17:0]
+vmod1_tb.v.cav4_elec.cav_mode[0].mode.beam_mag[17:0]
+@24
+vmod1_tb.v.cav4_elec.cav_mode[0].mode.beam_phs[18:0]
+vmod1_tb.v.cav4_elec.cav_mode[0].mode.mech_phase[18:0]
+@420
+vmod1_tb.v.cav4_elec.cav_mode[0].mode.cordic_x[17:0]
+@24
+vmod1_tb.v.cav4_elec.cav_mode[0].mode.cordic_phs[18:0]
+@420
+vmod1_tb.v.cav4_elec.cav_mode[0].mode.xout[17:0]
+vmod1_tb.v.cav4_elec.cav_mode[0].mode.yout[17:0]
+vmod1_tb.v.cav4_elec.cav_mode[0].mode.mul_coef[17:0]
+vmod1_tb.v.cav4_elec.cav_mode[0].mode.beam_drv[17:0]
+vmod1_tb.v.cav4_elec.cav_mode[0].mode.drive2[23:0]
+vmod1_tb.v.cav4_elec.cav_mode[0].mode.lp_pair.state[26:0]
+vmod1_tb.v.cav4_elec.cav_mode[0].mode.out_couple.drive[17:0]
+vmod1_tb.v.cav4_elec.cav_mode[0].mode.out_couple.pair[18:0]
+vmod1_tb.v.cav4_elec.cav_mode[0].v_squared[17:0]
+@c00200
+-cic_fwd
+@28
+vmod1_tb.cic_fwd.sample
+@8420
+vmod1_tb.cic_fwd.in[15:0]
+vmod1_tb.cic_fwd.sind[17:0]
+vmod1_tb.cic_fwd.sin_prod[33:0]
+@420
+vmod1_tb.cic_fwd.acc_q[23:0]
+vmod1_tb.cic_fwd.cic_q[23:0]
+vmod1_tb.cic_fwd.out_q[17:0]
+vmod1_tb.cic_fwd.out_i[17:0]
+@1401200
+-cic_fwd
+@c00200
+-piezo_couple
+@420
+vmod1_tb.v.piezo_couple.x[17:0]
+@24
+vmod1_tb.v.piezo_couple.k_out_addr[9:0]
+@420
+vmod1_tb.v.piezo_couple.k_out[17:0]
+vmod1_tb.v.piezo_couple.result[17:0]
+@1401200
+-piezo_couple
+@c00200
+-resonator
+@24
+vmod1_tb.v.resonator.prop_const_addr[9:0]
+vmod1_tb.v.resonator.scale0[2:0]
+@420
+vmod1_tb.v.resonator.wd_out0[17:0]
+@28
+vmod1_tb.v.resonator.start
+@420
+vmod1_tb.v.resonator.drive[17:0]
+vmod1_tb.v.resonator.position[17:0]
+@24
+vmod1_tb.v.resonator.pc[9:0]
+@420
+vmod1_tb.v.resonator.ab_out0[35:0]
+vmod1_tb.v.resonator.ab_out[35:0]
+vmod1_tb.v.resonator.wd_out[17:0]
+@28
+vmod1_tb.v.resonator.iq
+@420
+vmod1_tb.v.resonator.mul_result[17:0]
+vmod1_tb.v.resonator.foo_result[18:0]
+vmod1_tb.v.resonator.sat_result[35:0]
+@24
+vmod1_tb.v.resonator.pc_d[9:0]
+@1401200
+-resonator
+[pattern_trace] 1
+[pattern_trace] 0

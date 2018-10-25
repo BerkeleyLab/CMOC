@@ -1,0 +1,361 @@
+{
+    "c": 2.99792458E8,
+    "pi": 3.141592653589793,
+    "Qe": 1.602177E-19,
+    "mu0": "(4*pi)*1e-7",
+
+    "f0": 1300e6,
+    "lam_beam": "c/f0",
+
+    "Z0_real":"mu0*c",
+    "Z0": "120*pi",
+
+	"d_Amplifier": {
+        "type":"filter",
+	    "name":"Amplifier",
+
+	    "PAmax" : {
+            "value": 6e3,
+            "units": "W",
+            "description": "RF amplifier maximum power"
+        },
+        "PAbw" : {
+            "value": 1.5e6,
+            "units": "Hz",
+            "description": "Power amplifier bandwidth"
+        },
+        "Clip" : {
+            "value": 5,
+            "units": "",
+            "description": "Clipping harshness parameter"
+        },
+        "top_drive" : {
+            "value": 95,
+            "units": "%",
+            "description": "Maximum amplifier output drive setting (relative to PAmax)"
+        }
+    },
+
+    "d_TRF1": {
+        "type":"filter",
+        "name":"TRF1",
+        "order": {
+            "value": 2,
+            "units": "",
+            "description": ""
+        },
+        "nmodes": {
+            "value": [1,1],
+            "units": "",
+            "description": ""
+        },
+        "poles": {
+            "value": [["-7.5+2.7j"],["-7.5-2.7j"]],
+            "units": "",
+            "description": ""
+        }
+    },
+
+    "d_TRF2": {
+        "type":"filter",
+        "name":"TRF2",
+        "order": {
+            "value": 1,
+            "units": "",
+            "description": ""
+        },
+        "nmodes": {
+            "value": [1],
+            "units": "",
+            "description": ""
+        },
+        "poles": {
+            "value": [["-9."]],
+            "units": "",
+            "description": ""
+        }
+    },
+
+    "d_adc": {
+        "type":"adc",
+        "name":"ADC",
+
+	    "adc_max" : {
+			"value": 0.0,
+			"units": "sqrt(W)",
+			"description": ""
+		},
+        "prompt_phase":
+        {
+            "value": 0.0,
+            "units": "deg",
+            "description": "Phase shift for prompt coupling between Amplifier and ADC"
+        },
+        "adc_off" : {
+			"value": 0,
+			"units": "",
+			"description" : ""
+        },
+        "noise_psd": {
+            "value": "10**(-13.5)",
+            "units": "dBc/Hz",
+            "description": "Noise Power Spectral Density (PSD)"
+        }
+
+    },
+
+    "d_RXF": {
+        "type":"filter",
+        "name":"RXF",
+        "order": {
+            "value": 3,
+            "units": "",
+            "description": ""
+	    },
+	    "nmodes": {
+            "value": [1,1,1],
+            "units": "",
+            "description": ""
+	    },
+	    "poles": {
+            "value": [["-18+0j"],["-9.5+15j"],["-9.5-15j"]],
+            "units": "",
+            "description": ""
+	    }
+	},
+
+    "d_Controller": {
+        "type":"PI_CONT",
+		"name":"PI control",
+		"stable_gbw": {
+			"value": 20e3,
+			"units": "",
+			"description": ""
+		}
+	},
+
+
+    "d_Gun": {
+        "type": "gun",
+        "name":"d_Gun",
+        "Q": {
+            "value": -300e-12,
+            "units": "C",
+            "description": "Bunch nominal charge (<0 for electrons)"
+        },
+        "sz0": {
+            "value": 0.548e-3,
+            "units": "m",
+            "description": "Nominal initial rms bunch length"
+        },
+        "sd0": {
+            "value": 0.0,
+            "units": "fraction",
+            "description": "Nominal initial incoherent Energy spread at Eg (gun exit Energy)"
+        },
+        "E": {
+            "value": 750e3,
+            "units": "eV",
+            "description": "Nominal gun exit energy"
+        }
+    },
+
+     "d_Linac": {
+        "type": "linac",
+        "name": "d_linac",
+
+        "f0": {
+            "value": 1300e6,
+            "units": "Hz",
+            "description": "Nominal LO frequency"
+        },
+        "E": {
+            "value": 0.0,
+            "units": "eV",
+            "description": "Energy at the end of the Linac"
+        },
+        "phi": {
+            "value": 0.0,
+            "units": "deg",
+            "description": "Nominal Linac RF phase (-30 deg accelerates and puts head energy lower than tail)"
+        },
+        "s0": {
+            "value": 0.0,
+            "units": "m",
+            "description": "Wakefield characteristic length (Sband=1.322mm, Xband=0.77mm)"
+        },
+        "iris_rad": {
+            "value": 0.0,
+            "units": "m",
+            "description": "Mean iris radius (Sband=11.654mm,Xband=4.72mm)"
+        },
+
+        "dds_numerator": {
+            "value": 7,
+            "units": "Unitless",
+            "description": "Near-IQ numerator (IF carrier/ADC clock)"
+        },
+        "dds_denominator": {
+            "value": 33,
+            "units": "Unitless",
+            "description": "Near-IQ denominator (IF carrier/ADC clock)"
+        },
+
+        "cryomodule_connect" : ["d_Cryomodule"],
+        "Chicane": "d_Chicane"
+    },
+
+    "d_Cryomodule": {
+        "type": "Cryomodule",
+        "name": "d_cryomodule",
+        "station_connect": ["d_Station"],
+        "mechanical_mode_connect": [],
+
+        "lp_shift": {
+            "value": 9,
+            "units": "",
+            "description": "Low-pass FPGA implementation"
+        }
+    },
+
+    "d_Station": {
+        "type": "station",
+        "name": "d_station",
+        "Amplifier": "d_Amplifier",
+        "Cavity": "d_Cavity",
+        "Rx_filter":"d_RXF",
+        "Tx_filter1":"d_TRF1",
+        "Tx_filter2":"d_TRF2",
+        "Controller": "d_Controller",
+        "loop_delay_size": {
+            "value": 3,
+            "units": "Time steps",
+            "description": "RF station aggregated loop delay"
+        },
+
+        "piezo_connect": [],
+
+        "N_Stations": {
+            "value": 1,
+            "units": "N/A",
+            "description": "Number of Virtual RF Stations to be represented"
+        },
+
+        "cav_adc" : "d_adc",
+        "rev_adc" : "d_adc",
+        "fwd_adc" : "d_adc"
+    },
+
+	"d_Cavity": {
+        "type": "Cavity",
+        "name": "Cavity",
+
+        "L": {
+            "value": 1.0,
+            "units": "m",
+            "description": "Length"
+        },
+        "nomgrad": {
+            "value": 16.301e6,
+            "units": "V/m",
+            "description": "Nominal gradient"
+        },
+
+        "elec_modes" : ["d_ElecMode"]
+    },
+
+    "d_ElecMode":{
+        "type": "elec_mode",
+        "name": "d_elecMode",
+        "mode_name": "default",
+
+        "RoverQ": {
+            "value": 1036.0,
+            "units": "Ohms",
+            "description": "Shunt impedance (R/Q)"
+        },
+        "foffset": {
+            "value": 1.0,
+            "units": "Hz",
+            "description": "Nominal frequency offset"
+        },
+        "peakV": {
+            "value": 1.5e6,
+            "units": "",
+            "description": ""
+        },
+        "Q_0": {
+            "value": 1e10,
+            "units": "Unitless",
+            "description": "Internal loss Q"
+        },
+        "Q_drive": {
+            "value": 8.1e7,
+            "units": "Unitless",
+            "description": "Drive coupler Q"
+        },
+        "Q_probe": {
+            "value": 2e9,
+            "units": "Unitless",
+            "description": "Field probe Q"
+        },
+        "phase_rev": {
+            "value": 0,
+            "units": "",
+            "description": "Phase shift between Cavity cells and reverse ADC"
+        },
+        "phase_probe": {
+            "value": 0,
+            "units": "",
+            "description": "Phase shift between Cavity cells and probe ADC"
+        },
+
+        "mech_couplings" : {
+            "value": {},
+            "units": "(rad/s)/V^2",
+            "description": ""
+        }
+    },
+
+    "d_Noise": {
+        "name": "d_Noise",
+        "type": "Noise",
+        "dQ_Q": {
+            "Type":"Step",
+            "Settings": [0.06, 0.125],
+            "units": "fraction of nominal beam charge",
+            "description": "Beam charge jitter"
+        },
+        "dtg": {
+            "Type":"None",
+            "Settings": [5e-12],
+            "units": "s",
+            "description": "Timing error of gun wrt RF (<0 is an early bunch)"
+        },
+        "dE_ing": {
+            "Type":"None",
+            "Settings": [0.5],
+            "units": "eV",
+            "description": "Energy deviation at end of injector"
+        },
+        "dsig_z": {
+            "Type":"None",
+            "Settings": [0.5],
+            "units": "m",
+            "description": "Deviation of bunch length from nominal length"
+        },
+        "dsig_E": {
+            "Type":"None",
+            "Settings": [0.5],
+            "units": "fraction of nominal Energy",
+            "description": "Deviation of energy spread from nominal energy spread"
+        },
+        "dchirp": {
+            "Type":"None",
+            "Settings": [0.5],
+            "units": "m",
+            "description": "<Ez> correlation"
+        }
+    }
+
+}

@@ -1,0 +1,514 @@
+
+{
+    "Simulation":{
+        "type": "simulation",
+        "name": "test_simulation",
+        "Tstep": {
+            "value": 10e-6,
+            "units": "s",
+            "description": "Simulation step size"
+        },
+        "time_steps": {
+            "value": 30000,
+            "units": "steps",
+            "description" : "Total simulation time"
+        },
+        "nyquist_sign": {
+            "value": -1,
+            "units": "Unitless",
+            "description": "-1 represents frequency inversion, as with high-side LO or even-numbered Nyquist zones"
+        },
+        "Synthesis": {
+            "name": "Synthesis0",
+            "type": "Synthesis",
+            "n_mech_modes": {
+                "value": 7,
+                "units": "Unitless",
+                "description": "Number of mechanical modes handled"
+            },
+            "df_scale": {
+                "value": 9,
+                "units": "",
+                "description": "see cav4_freq.v"
+            }
+        },
+        "OutputFreq": {
+            "value": 1,
+            "units": "Unitless",
+            "description": "Decimation factor of data plots."
+        }
+
+    },
+
+    "Accelerator": {
+        "name": "LCLS-II",
+		"type": "Accelerator",
+        "bunch_rate": {
+            "value": 1e6,
+            "units": "Hz",
+            "description": "Bunch repetition rate"
+        },
+
+        "gun": "d_Gun",
+        "linac_connect": ["Linac0"]
+    },
+
+    "Noise": "d_Noise",
+
+    "Linac0": {
+        "type": "linac",
+        "name": "linac0",
+
+        "f0": {
+            "value": 1300e6,
+            "units": "Hz",
+            "description": "Nominal LO frequency"
+        },
+        "E": {
+            "value": 0.0,
+            "units": "eV",
+            "description": "Energy at the end of the Linac"
+        },
+        "phi": {
+            "value": 0.0,
+            "units": "deg",
+            "description": "Nominal Linac RF phase (-30 deg accelerates and puts head energy lower than tail)"
+        },
+        "s0": {
+            "value": 0.0,
+            "units": "m",
+            "description": "Wakefield characteristic length (Sband=1.322mm, Xband=0.77mm)"
+        },
+        "iris_rad": {
+            "value": 0.0,
+            "units": "m",
+            "description": "Mean iris radius (Sband=11.654mm,Xband=4.72mm)"
+        },
+
+        "R56": {
+            "value": 0.0,
+            "units": "m",
+            "description": "Nominal R56 value for Linac (chicane-R56 < 0, No chicane = 0)"
+        },
+
+        "dds_numerator": {
+            "value": 7,
+            "units": "Unitless",
+            "description": "Near-IQ numerator (IF carrier/ADC clock)"
+        },
+        "dds_denominator": {
+            "value": 33,
+            "units": "Unitless",
+            "description": "Near-IQ denominator (IF carrier/ADC clock)"
+        },
+
+        "cryomodule_connect" : ["Cryomodule0"],
+        "Chicane": "Chicane0"
+    },
+
+    "Cryomodule0": {
+        "type": "Cryomodule",
+        "name": "cryomodule0",
+        "station_connect": ["Station0"],
+        "mechanical_mode_connect": ["MechMode0", "MechMode1", "MechMode2"],
+
+        "lp_shift": {
+            "value": 9,
+            "units": "",
+            "description": "Low-pass FPGA implementation"
+        }
+    },
+
+    "Station0": {
+        "type": "station",
+        "name": "station0",
+        "Amplifier": "d_Amplifier",
+        "Cavity": "Cavity0",
+        "Rx_filter":"d_RXF",
+        "Tx_filter1":"d_TRF1",
+        "Tx_filter2":"d_TRF2",
+        "Controller": "d_Controller",
+        "loop_delay_size": {
+            "value": 3,
+            "units": "Time steps",
+            "description": "RF station aggregated loop delay"
+        },
+
+        "piezo_connect": ["Piezo0"],
+
+        "N_Stations": {
+            "value": 1,
+            "units": "N/A",
+            "description": "Number of Virtual RF Stations to be represented"
+        },
+
+        "cav_adc" : "cav_adc0",
+        "rev_adc" : "rev_adc0",
+        "fwd_adc" : "fwd_adc0"
+    },
+
+    "Cavity0": {
+        "type": "Cavity",
+        "name": "cavity0",
+
+        "L": {
+            "value": 1.0,
+            "units": "m",
+            "description": "Length"
+        },
+        "nom_grad": {
+            "value": 16.301e6,
+            "units": "V/m",
+            "description": "Nominal gradient"
+        },
+
+        "elec_mode_connect" : ["ElecMode0", "ElecMode1", "ElecMode2"]
+    },
+
+    "ElecMode0":{
+        "type": "elec_mode",
+        "name": "ElecMode0",
+        "mode_name": "pi",
+
+        "RoverQ": {
+            "value": 1036.0,
+            "units": "Ohms",
+            "description": "Shunt impedance (R/Q)"
+        },
+        "foffset": {
+            "value": 1.0,
+            "units": "Hz",
+            "description": "Nominal frequency offset"
+        },
+        "peakV": {
+            "value": 1.5e6,
+            "units": "",
+            "description": ""
+        },
+        "Q_0": {
+            "value": 1e10,
+            "units": "Unitless",
+            "description": "Internal loss Q"
+        },
+        "Q_drive": {
+            "value": 8.1e7,
+            "units": "Unitless",
+            "description": "Drive coupler Q"
+        },
+        "Q_probe": {
+            "value": 2e9,
+            "units": "Unitless",
+            "description": "Field probe Q"
+        },
+        "phase_rev": {
+            "value": 0,
+            "units": "",
+            "description": "Phase shift between Cavity cells and reverse ADC"
+        },
+        "phase_probe": {
+            "value": 0,
+            "units": "",
+            "description": "Phase shift between Cavity cells and probe ADC"
+        },
+
+        "mech_couplings" : {
+            "value": {"MechMode0": 3.03e-8, "MechMode1": 0.0, "MechMode2": 0.0},
+            "units": "(rad/s)/V^2",
+            "description": ""
+        }
+    },
+
+    "ElecMode1":{
+        "type": "elec_mode",
+        "name": "ElecMode1",
+        "mode_name": "8pi/9",
+
+        "RoverQ": {
+            "value": 20.0,
+            "units": "Ohms",
+            "description": "Shunt impedance (R/Q)"
+        },
+        "foffset": {
+            "value": -8e5,
+            "units": "Hz",
+            "description": "Nominal frequency offset"
+        },
+        "peakV": {
+            "value": 0.15e6,
+            "units": "",
+            "description": ""
+        },
+        "Q_0": {
+            "value": 1e10,
+            "units": "Unitless",
+            "description": "Internal loss Q"
+        },
+        "Q_drive": {
+            "value": 8.1e7,
+            "units": "Unitless",
+            "description": "Drive coupler Q"
+        },
+        "Q_probe": {
+            "value": 2e9,
+            "units": "Unitless",
+            "description": "Field probe Q"
+        },
+        "phase_rev": {
+            "value": 10.0,
+            "units": "",
+            "description": "Phase shift between Cavity cells and reverse ADC"
+        },
+        "phase_probe": {
+            "value": -180.0,
+            "units": "",
+            "description": "Phase shift between Cavity cells and probe ADC"
+        },
+
+        "mech_couplings" : {
+            "value": {"MechMode0": 0.0, "MechMode1": 0.0, "MechMode2": 0.0},
+            "units": "(rad/s)/V^2",
+            "description": ""
+        }
+    },
+
+    "ElecMode2":{
+        "type": "elec_mode",
+        "name": "ElecMode2",
+        "mode_name": "pi/9",
+
+        "RoverQ": {
+            "value": 10.0,
+            "units": "Ohms",
+            "description": "Shunt impedance (R/Q)"
+        },
+        "foffset": {
+            "value": 20.0,
+            "units": "Hz",
+            "description": "Nominal frequency offset"
+        },
+        "peakV": {
+            "value": 0.15e6,
+            "units": "",
+            "description": ""
+        },
+        "Q_0": {
+            "value": 1e10,
+            "units": "Unitless",
+            "description": "Internal loss Q"
+        },
+        "Q_drive": {
+            "value": 8.1e7,
+            "units": "Unitless",
+            "description": "Drive coupler Q"
+        },
+        "Q_probe": {
+            "value": 2e9,
+            "units": "Unitless",
+            "description": "Field probe Q"
+        },
+        "phase_rev": {
+            "value": 0,
+            "units": "",
+            "description": "Phase shift between Cavity cells and reverse ADC"
+        },
+        "phase_probe": {
+            "value": 0,
+            "units": "",
+            "description": "Phase shift between Cavity cells and probe ADC"
+        },
+
+        "mech_couplings" : {
+            "value": {"MechMode0": 0.0, "MechMode1": 0.0, "MechMode2": 0.0},
+            "units": "(rad/s)/V^2",
+            "description": ""
+        }
+    },
+
+    "MechMode0":{
+        "type": "MechMode",
+        "name": "MechMode0",
+        "f0": {
+            "value": 30e3,
+            "units": "Hz",
+            "description": "Frequency"
+        },
+        "Q": {
+            "value": 5.0,
+            "units": "Unitless",
+            "description": "Quality factor"
+        },
+        "full_scale": {
+            "value": 1.13,
+            "units": "sqrt(J)",
+            "description": "FPGA full-scale resonator amplitude register"
+        }
+    },
+
+    "MechMode1":{
+        "type": "MechMode",
+        "name": "MechMode1",
+        "f0": {
+            "value": 100e3,
+            "units": "Hz",
+            "description": "Frequency"
+        },
+        "Q": {
+            "value": 5.0,
+            "units": "Unitless",
+            "description": "Quality factor"
+        },
+        "full_scale": {
+            "value": 1.13,
+            "units": "sqrt(J)",
+            "description": "FPGA full-scale resonator amplitude register"
+        }
+    },
+
+    "MechMode2":{
+        "type": "MechMode",
+        "name": "MechMode2",
+        "f0": {
+            "value": 246.0,
+            "units": "Hz",
+            "description": "Frequency"
+        },
+        "Q": {
+            "value": 25.0,
+            "units": "Unitless",
+            "description": "Quality factor"
+        },
+        "full_scale": {
+            "value": 1.13,
+            "units": "sqrt(J)",
+            "description": "FPGA full-scale resonator amplitude register"
+        }
+    },
+
+    "Piezo0": {
+        "type": "Piezo",
+        "name": "Piezo0",
+        "VPmax": {
+            "value": 48.0,
+            "units": "V",
+            "description": "Piezo maximum drive voltage"
+        },
+        "mech_couplings" : {
+            "value": {"MechMode0": 0.0, "MechMode1": 0.25999, "MechMode2": 0.0},
+            "units": "sqrt(J)/V",
+            "description": ""
+        }
+    },
+
+    "Piezo1": {
+        "type": "Piezo",
+        "name": "Piezo1",
+        "VPmax": {
+            "value": 48.0,
+            "units": "V",
+            "description": "Piezo maximum drive voltage"
+        },
+        "mech_couplings" : {
+            "value": {"MechMode0": 0.0, "MechMode1": 0.0, "MechMode2": 0.0},
+            "units": "sqrt(J)/V",
+            "description": ""
+        }
+    },
+
+    "Piezo2": {
+        "type": "Piezo",
+        "name": "Piezo2",
+        "VPmax": {
+            "value": 48.0,
+            "units": "V",
+            "description": "Piezo maximum drive voltage"
+        },
+        "mech_couplings" : {
+            "value": {"MechMode0": 0.0, "MechMode1": 0.0, "MechMode2": 0.0},
+            "units": "sqrt(J)/V",
+            "description": ""
+        }
+
+    },
+
+    "cav_adc0": {
+        "type":"adc",
+        "name":"cav_adc0",
+
+        "adc_max" : {
+            "value": 1.2,
+            "units": "sqrt(W)",
+            "description": ""
+        },
+        "adc_off" : {
+            "value": 10,
+            "units": "",
+            "description" : ""
+        },
+        "prompt_phase":
+        {
+            "value": 0.0,
+            "units": "deg",
+            "description": "Phase shift for prompt coupling between Amplifier and ADC"
+        },
+        "noise_psd": {
+            "value": -155,
+            "units": "dBc/Hz",
+            "description": "Noise Power Spectral Density (PSD)"
+        }
+    },
+
+    "rev_adc0": {
+        "type":"adc",
+        "name":"rev_adc0",
+
+        "adc_max" : {
+            "value": 180.0,
+            "units": "sqrt(W)",
+            "description": ""
+        },
+        "adc_off" : {
+            "value": 20,
+            "units": "",
+            "description" : ""
+        },
+        "prompt_phase":
+        {
+            "value": 0.0,
+            "units": "deg",
+            "description": "Phase shift for prompt coupling between Amplifier and ADC"
+        },
+        "noise_psd": {
+            "value": -155,
+            "units": "dBc/Hz",
+            "description": "Noise Power Spectral Density (PSD)"
+        }
+    },
+
+    "fwd_adc0": {
+        "type":"adc",
+        "name":"fwd_adc0",
+
+        "adc_max" : {
+            "value": 160.0,
+            "units": "sqrt(W)",
+            "description": ""
+        },
+        "adc_off" : {
+            "value": 30,
+            "units": "",
+            "description" : ""
+        },
+        "prompt_phase":
+        {
+            "value": 0.0,
+            "units": "deg",
+            "description": "Phase shift for prompt coupling between Amplifier and ADC"
+        },
+        "noise_psd": {
+            "value": -155,
+            "units": "dBc/Hz",
+            "description": "Noise Power Spectral Density (PSD)"
+        }
+    }
+
+ }

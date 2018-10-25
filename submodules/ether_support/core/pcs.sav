@@ -1,0 +1,52 @@
+[size] 1024 693
+[pos] 39 0
+*-5.948711 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] pcs_tb.
+[treeopen] pcs_tb.link.
+@28
+pcs_tb.rst
+pcs_tb.operate
+pcs_tb.tx_enable
+@22
+pcs_tb.tx_data[7:0]
+@28
+pcs_tb.link.tx.ep_lacr_tx_en_i
+pcs_tb.even
+@200
+-output
+@22
+pcs_tb.enc.dataout[9:0]
+@200
+-tx internal
+@24
+pcs_tb.link.tx.tx_state[3:0]
+@22
+pcs_tb.link.tx.tx_odata_reg[7:0]
+@28
+pcs_tb.link.tx.tx_is_k
+@200
+-rx internal
+@28
+pcs_tb.link.rx.rx_synced
+@24
+pcs_tb.link.rx.rx_state[2:0]
+@28
+pcs_tb.link.rx.d_is_idle
+pcs_tb.link.rx.d_is_comma
+pcs_tb.link.rx.d_is_even
+pcs_tb.link.rx.d_is_spd
+pcs_tb.link.rx.d_is_epd
+pcs_tb.link.rx.d_is_extend
+pcs_tb.link.rx.d_is_lcr
+@22
+pcs_tb.link.rx.gmii_data[7:0]
+@28
+pcs_tb.link.rx.gmii_dv
+@200
+-negotiator
+@24
+pcs_tb.link.negotiator.an_state[1:0]
+@28
+pcs_tb.link.negotiator.ACK
+pcs_tb.link.negotiator.lacr_in_stb
+pcs_tb.link.negotiator.lacr_ready

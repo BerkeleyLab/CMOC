@@ -1,0 +1,131 @@
+=========
+Input deck
+
+Engineering and physics plant input parameters (single cavity)
+Time step (s)
+Full-scale drive power (W)
+Full-scale piezo voltage (V)
+Nominal carrier frequency (Hz)
+Amplifier bandwidth (Hz, maximum is 3.5 MHz)
+For each electrical mode:
+   Q_0 (internal loss)
+   Q_1 (drive coupler)
+   Q_2 (field probe)
+   phase to reflected measurement
+   phase to field probe measurement
+   RoverQ (Ohms)
+   nominal frequency offset (Hz)
+   Peak voltage (V, FPGA-only)
+   For each mechanical mode:
+      Lorentz response K (Hz/V^2)
+For each mechanical mode:
+   frequency (Hz)
+   Q
+   Peak energy (J, FPGA-only)
+   Piezo response K (Hz/V)
+(in the long run, may also need a mu x mu x nu matrix of signs)
+(the FPGA-only peak values define fixed-point arithmetic scaling;
+in the floating-point computer world, SI units are used)
+
+Additional simulated hardware
+  cavity ADC full-scale (W)
+  forward ADC full-scale (W)
+  reflected ADC full-scale (W)
+  cavity ADC offset
+  forward ADC offset
+  reflected ADC offset
+  PRNG enable
+  PRNG initialization
+  beam current (A)
+  LO DDS
+
+U = V^2/((R/Q)*omega)
+xmax = Vmax / sqrt((RoverQ)*omega)
+and x is defined as sqrt(U)
+output wave amplitude = x * sqrt(omega/Q)
+  units: sqrt(J) * sqrt(1/s) = sqrt(W)
+
+for m in elec_modes
+ // x is defined as sqrt(U)
+ xmax = m.Vmax / sqrt((m.RoverQ)*omega0)
+ R.m.out1 = sqrt(omega/m.Q_1) * cos(m.phase_1) * cav_adc_max / xmax
+ R.m.out2 = sqrt(omega/m.Q_1) * sin(m.phase_1) * cav_adc_max / xmax
+ R.m.out3 = sqrt(omega/m.Q_2) * cos(m.phase_2) * rfl_adc_max / xmax
+ R.m.out4 = sqrt(omega/m.Q_2) * sin(m.phase_2) * rfl_adc_max / xmax
+end
+
+R.offset_for = offset_for
+R.offset_rfl = offset_rfl
+R.offset_cav = offset_cav
+
+
+Controller parameter registers (bits? derive from engineering units?)
+  set X
+  set Y
+  coeff X I
+  coeff Y I
+  coeff X P
+  coeff Y P
+  sel enable
+  coarse scale
+  lim X lo
+  lim X hi
+  lim Y lo
+  lim Y hi
+  piezo static
+  SEL phase offset
+  lp1a kx real
+  lp1a kx imag
+  lp1a ky real
+  lp1a ky imag
+  lp2a kx real
+  lp2a kx imag
+  lp2a ky real
+  lp2a ky imag
+  phase_step_h
+  phase_step_l
+  modulo
+  wave_samp_per
+  chan_keep
+(short-term goals can be met with low-latency proportional gain disabled)
+
+
+
+configuration file has to be able to take a "wait for time" entry, and this
+will propagate to simulation commands.
+
+=========
+Known-desired tests
+
+1.
+Pi mode only (other modes have coupling set to zero)
+Pi mode bandwidth "large" for meaningful simulation in ~10000 cycles
+(tau = 2000 cycles = 20 microseconds, half-bandwidth 8 kHz)
+No mechanical modes (all couplings set to zero)
+Open-loop drive pulse on and off
+
+2. (like 1, but)
+Add 8*pi/9 mode
+
+3. (like 2, but)
+One Lorentz-coupled mechanical mode
+Open-loop drive pulse on and hold
+
+4. (like 3, but)
+At t=10 us, switch to pure SEL mode, no amplitude or phase control
+
+5. (like 4, but)
+Three Lorentz-coupled mechanical modes
+
+6. (like 5, but)
+At t=10 microseconds, switch to SEL mode with simple amplitude PI control
+
+7. (like 6, but)
+Add piezo coupling to mechanical modes
+At t=60 microseconds, inject step in piezo drive
+
+8. (like 7, but)
+At t=120 microseconds, close PI
+
+9. (like 8, but)
+At t=180 microseconds, turn on beam current

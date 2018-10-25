@@ -1,0 +1,29 @@
+route add -net 192.168.8.0 netmask 255.255.255.0 dev eth0
+
+make ether_mc_av5t
+bit2rbf ether_mc_av5t.rbf <ether_mc_av5t.bit
+cp ether_mc_av5t.rbf ..
+
+cp ../ether_mc_av5t.rbf .
+sh load_fpga
+
+# check routing
+/sbin/route -n | grep 192.168.8.0
+
+# write-only control of LEDs (led1 in aggregate.v, controlled by cl1rx)
+# first character is brightness of LED1
+# second character is brightness of LED2
+printf "~0" | nc -q 1 -u 192.168.8.2 1000
+printf "\000\255" | nc -q 1 -u 192.168.8.2 1000
+
+# read and write a few words of localbus
+printf "sillyoneDD@1xxxxTT@0yyyyTT@1yyyyTT@2yyyyTT@3yyyy" | nc -q 1 -u 192.168.8.2 3000
+
+/usr/sbin/arp -n
+
+# don't do this when connected to building LAN
+tcpdump -vv -x -s 150 -n -e -i eth0
+tcpdump -vv -x -s 150 -n -e -i eth0 host 192.168.8.2
+
+make udprtx
+time ./udprtx 192.168.8.2 5000 3

@@ -1,0 +1,39 @@
+On-chip computer (J1 or similar?)
+
+Network packet gateway
+
+Pulse-ID triggered sequence player
+  16-bit wide RAM, 64 or 1K deep
+  3 word pulse ID or 1 word continue instruction (47 bit)
+    Negotiable if this is FPGA cycle count or gun RF cycle ID,
+    ratio is 185.714 MHz / 94.286 MHz = 65/33
+    or maybe laser clock, 37.143 MHz / 94.286 MHz = 13/264,
+    but that factor of 5 is not very deeply cast into this accelerator.
+    Probably not "1 MHz" number, a factor of 40 slower yet.
+  1 word destination address
+  2 word data
+  upper level can read and write current execution address
+  writable stop address
+
+Function generator
+  pulse with adjustable rise time/fall time
+  linear or quadratic phase generator
+  optional CORDIC
+  optional sqrt(x)
+  A*f + B*df/dt
+  selectable destination address
+  mailbox for use by computer as math engine
+
+High-speed LLRF logic:
+  near-IQ downconvert
+  fdbk_core
+    add feedforward control?
+  2 x lp1_io forming low-pass plus notch filter
+  amplifier linearizer
+
+how to hook the waveform capture up to this stack?
+  N x simple downconverters
+  conveyor belt triggered at f/33
+  multiple clients
+
+Link to simulator in rtsim

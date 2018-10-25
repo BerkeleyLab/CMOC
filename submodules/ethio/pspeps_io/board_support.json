@@ -1,0 +1,498 @@
+{
+    "fmc110_ctrl":
+    {
+        "name": "FMC110_CTRL",
+        "desc": "FMC110 control registers",
+        "regmap":
+        {
+            "COMMAND":     "0x0",
+            "CONTROL":     "0x1",
+            "NB_BURSTS":   "0x2",
+            "BURST_SIZE":  "0x3",
+            "FMC_INFO":    "0x4"
+        }
+    },
+    "fmc112_ctrl":
+    {
+        "name": "FMC112_CTRL",
+        "desc": "FMC112 control registers",
+        "regmap":
+        {
+            "COMMAND":     "0x0",
+            "CONTROL":     "0x1",
+            "NB_BURSTS":   "0x2",
+            "BURST_SIZE":  "0x3",
+            "FMC_INFO":    "0x4"
+        }
+    },
+    "fmc116_ctrl":
+    {
+        "name": "FMC116_CTRL",
+        "desc": "FMC116 control registers",
+        "regmap":
+        {
+            "COMMAND":     "0x0",
+            "CONTROL":     "0x1",
+            "NB_BURSTS":   "0x2",
+            "BURST_SIZE":  "0x3",
+            "FMC_INFO":    "0x4"
+        }
+    },
+    "fmc150_ctrl":
+    {
+        "name": "FMC150_CTRL",
+        "desc": "FMC150 control registers",
+        "regmap":
+        {
+            "COMMAND":     "0x0",
+            "CONTROL":     "0x1",
+            "NB_BURSTS":   "0x2",
+            "BURST_SIZE":  "0x3",
+            "FMC_INFO":    "0x4"
+        }
+    },
+    "cpld_ctrl":
+    {
+        "name": "CPLD_CTRL",
+        "desc": "CPLD CTRL",
+        "regmap":
+        {
+            "GLOBAL":          "0x0004",
+            "REG0":            "0x0000",
+            "REG1":            "0x0001",
+            "REG2":            "0x0002"
+        }
+    },
+    "ads5400_phy":
+    {
+        "name": "ADS5400_PHY",
+        "desc": "TI ADS5400: Physical status",
+        "regmap":
+        {
+            "COMMAND":         "0x0",
+            "CONTROL":         "0x1",
+            "INC_A":           "0x2",
+            "DEC_A":           "0x6",
+            "TAP_BITSLIP_A":   "0x000A",
+            "TAP_VAL0":        "0x000B",
+            "TAP_VAL1":        "0x000C",
+            "TAP_VAL2":        "0x000D",
+            "TAP_VAL3":        "0x000E"
+        }
+    },
+    "eeprom_ctrl":
+    {
+        "name": "EEPROM_CTRL",
+        "desc": "EEPROM",
+        "addr_max":           "0xff"
+    },
+    "adt7411_ctrl":
+    {
+        "name": "ADT7411_CTRL",
+        "desc": "Analog ADT7411: Control status",
+        "addr_max":           "0x4e"
+    },
+    "ads5400_ctrl":
+    {
+        "name": "ADS5400_CTRL",
+        "desc": "TI ADS5400: Control status",
+        "addr_max":           "0x1f",
+        "regmap":
+        {
+            "GLOBAL":         "0x20"
+        }
+    },
+    "dac5681z_phy":
+    {
+        "name": "DAC5681Z_PHY",
+        "desc": "TI DAC5681Z: Physical status",
+        "regmap":
+        {
+            "COMMAND":         "0x0000",
+            "CONTROL":         "0x0001",
+            "DLY_INC":         "0x0002",
+            "DLY_DEC":         "0x0003"
+        }
+    },
+    "dac5681z_ctrl":
+    {
+        "name": "DAC5681Z_CTRL",
+        "desc": "TI DAC5681Z: Control status",
+        "addr_max":           "0xf",
+        "regmap":
+        {
+            "GLOBAL":         "0x10"
+        }
+    },
+    "ads62p49_phy":
+    {
+        "name": "ADS62P49_PHY",
+        "desc": "TI ADS62P49: Physical status",
+        "regmap":
+        {
+            "COMMAND":         "0x0",
+            "CONTROL":         "0x1",
+            "INC_A":           "0x2",
+            "INC_B":           "0x3",
+            "DEC_A":           "0x4",
+            "DEC_B":           "0x5",
+            "TAP_VAL_A_03":    "0x6",
+            "TAP_VAL_A_46":    "0x7",
+            "TAP_VAL_B_03":    "0x8",
+            "TAP_VAL_B_46":    "0x9",
+            "TAP_VAL_C":       "0xa"
+        }
+    },
+    "dac3283_phy":
+    {
+        "name": "DAC3283_PHY",
+        "desc": "TI DAC3283: Physical status",
+        "regmap":
+        {
+            "COMMAND":         "0x0",
+            "CONTROL":         "0x1"
+        }
+    },
+    "ad9517_ctrl":
+    {
+        "name": "AD9517_CTRL",
+        "desc": "Analog Devices AD9517: Control status",
+        "addr_max":           "0x232",
+        "regmap":
+        {
+            "GLOBAL":         "0x233"
+        }
+    },
+    "ltc2656_ctrl":
+    {
+        "name": "LTC2656_CTRL",
+        "desc": "Linear LTC2656: Control status",
+        "addr_max":           "0xff",
+        "regmap":
+        {
+            "GLOBAL":         "0x100"
+        }
+    },
+    "ads62p49_ctrl":
+    {
+        "name": "ADS62P49_CTRL",
+        "desc": "TI ADS62P49: Control status",
+        "addr_max":           "0x76",
+        "regmap":
+        {
+            "GLOBAL":         "0x77"
+        }
+    },
+    "dac3283_ctrl":
+    {
+        "name": "DAC3283_CTRL",
+        "desc": "TI DAC3283: Control status",
+        "addr_max":             "0x1f",
+        "regmap":
+        {
+            "GLOBAL":         "0x20"
+        }
+    },
+    "cdce72010_ctrl":
+    {
+        "name": "CDCE72010_CTRL",
+        "desc": "TI CDCE72010: Control status",
+        "addr_max":             "0xc",
+        "regmap":
+        {
+            "GLOBAL":         "0x10"
+        }
+    },
+    "amc7823_ctrl":
+    {
+        "name": "AMC7823_CTRL",
+        "desc": "AMC7823: Control status",
+        "addr_max":             "0x115",
+        "regmap":
+        {
+            "GLOBAL":         "0x320"
+        }
+    },
+    "freq_cnt":
+    {
+        "name": "FREQ_CNT",
+        "desc": "Frequency counter",
+        "regmap":
+        {
+            "SELECT":         "0x0",
+            "VALUE":          "0x1"
+        }
+    },
+    "ltc2175_ctrl":
+    {
+        "name": "LTC2175_CTRL",
+        "desc": "Linear LTC2175 control status",
+        "addr_max":           "0x4",
+        "regmap":
+        {
+            "GLOBAL":         "0x5"
+        }
+    },
+    "ltc2175_quad_phy":
+    {
+        "name": "LTC2175_QUAD_PHY",
+        "desc": "Linear LTC2175 PHY",
+        "regmap":
+        {
+            "COMMAND":              "0x0000",
+            "CONTROL":              "0x0001",
+            "INC_A":                "0x0002",
+            "INC_B":                "0x0003",
+            "DEC_A":                "0x0004",
+            "DEC_B":                "0x0005",
+            "BITSLIP_A":            "0x0006",
+            "BITSLIP_B":            "0x0007",
+            "TAP_VAL0":             "0x0008",
+            "TAP_VAL1":             "0x0009",
+            "TAP_VAL2":             "0x000A",
+            "TAP_VAL3":             "0x000B",
+            "TAP_VAL4":             "0x000C",
+            "TAP_VAL5":             "0x000D",
+            "TAP_VAL6":             "0x000E",
+            "TAP_VAL7":             "0x000F"
+        }
+    },
+    "sip_rxtx":
+    {
+        "name": "RXTX_",
+        "desc": "LBL RXTX frontend boards",
+        "cores":
+        [
+            {"name":    "amc7823_ctrl",
+             "seq":     "0",
+             "base":    "0x0"},
+            {"name":    "amc7823_ctrl",
+             "seq":     "1",
+             "base":    "0x400"}
+        ]
+    },
+    "sip_fmc150":
+    {
+        "name": "FMC150_",
+        "desc": "4DSP FMC150",
+        "cores":
+        [
+            {"name":    "fmc150_ctrl",
+             "base":    "0"},
+            {"name":    "ads62p49_phy",
+             "base":     "0x10"},
+            {"name":    "dac3283_phy",
+             "base":    "0x20"},
+            {"name":    "ads62p49_ctrl",
+             "base":    "0x100"},
+            {"name":    "dac3283_ctrl",
+             "base":    "0x300"},
+            {"name":    "cdce72010_ctrl",
+             "base":    "0x400"},
+            {"name":    "freq_cnt",
+             "base":    "0x600"},
+            {"name":    "amc7823_ctrl",
+             "base":    "0x700"}
+        ]
+    },
+    "sip_fmc112":
+    {
+        "name": "FMC112_",
+        "desc": "4DSP FMC112",
+        "cores":
+        [
+            {"name":    "fmc112_ctrl",
+             "base":    "0"},
+            {"name":    "ltc2175_quad_phy",
+             "base":     "0x10"},
+            {"name":    "ltc2175_ctrl",
+             "base":     "0x100",
+             "seq":  "0"},
+            {"name":    "ltc2175_ctrl",
+             "base":     "0x110",
+             "seq":  "1"},
+            {"name":    "ltc2175_ctrl",
+             "base":     "0x120",
+             "seq":  "2"},
+            {"name":    "ad9517_ctrl",
+             "base":     "0x300"},
+            {"name":    "freq_cnt",
+             "base":    "0x600"},
+            {"name":    "ltc2656_ctrl",
+             "base":     "0x700",
+             "seq":  "0"},
+            {"name":    "ltc2656_ctrl",
+             "base":     "0x800",
+             "seq":  "1"},
+            {"name":    "cpld_ctrl",
+             "base":    "920"}
+        ]
+    },
+    "sip_fmc116":
+    {
+        "name": "FMC116_",
+        "desc": "4DSP FMC116",
+        "cores":
+        [
+            {"name":    "fmc116_ctrl",
+             "base":    "0"},
+            {"name":    "ltc2175_quad_phy",
+             "base":     "0x10"},
+            {"name":    "ltc2175_ctrl",
+             "base":     "0x100",
+             "seq":  "0"},
+            {"name":    "ltc2175_ctrl",
+             "base":     "0x110",
+             "seq":  "1"},
+            {"name":    "ltc2175_ctrl",
+             "base":     "0x120",
+             "seq":  "2"},
+            {"name":    "ltc2175_ctrl",
+             "base":     "0x130",
+             "seq":  "3"},
+            {"name":    "ad9517_ctrl",
+             "base":     "0x300"},
+            {"name":    "freq_cnt",
+             "base":    "0x600"},
+            {"name":    "ltc2656_ctrl",
+             "base":     "0x700",
+             "seq":  "0"},
+            {"name":    "ltc2656_ctrl",
+             "base":     "0x800",
+             "seq":  "1"},
+            {"name":    "cpld_ctrl",
+             "base":    "920"}
+        ]
+    },
+    "sip_fmc110":
+    {
+        "name": "FMC110_",
+        "desc": "4DSP FMC110",
+        "cores":
+        [
+            {"name":    "fmc110_ctrl",
+             "base":    "0"},
+            {"name":    "ads5400_phy",
+             "base":    "0x10",
+             "seq": "0" },
+            {"name":    "ads5400_ctrl",
+             "base":    "0x100",
+             "seq": "0" },
+            {"name":    "dac5681z_phy",
+             "base":    "0x20",
+             "seq": "0" },
+            {"name":    "dac5681z_ctrl",
+             "base":    "0x200",
+             "seq": "0" },
+            {"name":    "ad9517_ctrl",
+             "base":     "0x300"},
+            {"name":    "freq_cnt",
+             "base":    "0x600"},
+            {"name":    "ads5400_phy",
+             "base":    "0x710",
+             "seq": "1" },
+            {"name":    "ads5400_ctrl",
+             "base":    "0x800",
+             "seq": "1" },
+            {"name":    "dac5681z_phy",
+             "base":    "0x720",
+             "seq": "1" },
+            {"name":    "dac5681z_ctrl",
+             "base":    "0x900",
+             "seq": "1" },
+            {"name":    "cpld_ctrl",
+             "base":    "920"}
+        ]
+    },
+    "sip_cid":
+    {
+        "name": "SIPCID",
+        "desc": "4DSP SIPCID",
+        "regmap":
+        {
+            "CONSTELLATION_ID":     "0x0000",
+            "SOFTWARE_ID":          "0x0001",
+            "FIRMWARE_ID":          "0x0002",
+            "VERSION":              "0x0003",
+            "SIP_CID_BASE":         "0x0004",
+            "SIP_CID_END":          "0x0005",
+            "SIP_CID_ID":           "0x0006",
+            "SIP_FMC150_BASE":      "0x000a",
+            "SIP_FMC150_END":       "0x000b",
+            "SIP_FMC150_ID":        "0x000c",
+            "SIP_I2C_MASTER_BASE":  "0x000d",
+            "SIP_I2C_MASTER_END":   "0x000e",
+            "SIP_I2C_MASTER_ID":    "0x000f",
+            "SIP_FMC112_BASE":      "0x0011",
+            "SIP_FMC112_END":       "0x0012",
+            "SIP_FMC112_ID":        "0x0013"
+        }
+    },
+    "sip_mac_engine":
+    {
+        "name": "",
+        "desc": "Mac Engine bridge",
+        "regmap":
+        {
+            "CMD_RD_ACK":           "0x42"
+        }
+    },
+    "sip_i2c_master":
+    {
+        "name": "I2C_",
+        "desc": "SIP_I2C_MASTER",
+        "regmap":
+        {
+            "I2C_PRER":             "0x0",
+            "I2C_BYTE":             "0x1",
+            "KC705_MUX_ADDR":         "0x7400"
+        },
+        "cores":
+        [
+            {"name":    "adt7411_ctrl",
+             "base":    "0x4800"},
+            {"name":    "eeprom_ctrl",
+             "base":    "0x5000",
+             "seq":     "0"},
+            {"name":    "eeprom_ctrl",
+             "base":    "0x5400",
+             "seq":     "1"}
+        ]
+    },
+    "fmc110":
+    {
+        "name": "",
+        "desc": "constella fmc110",
+        "cores":
+        [
+            {"name":    "sip_mac_engine",
+             "base":    "0x0"},
+            {"name":    "sip_cid",
+             "base":    "0x2000"},
+            {"name":    "sip_fmc110",
+             "base":    "0x2404"},
+            {"name":    "sip_i2c_master",
+             "base":    "0x3404"}
+        ]
+    },
+    "fmc112fmc150":
+    {
+        "name": "",
+        "desc": "constella fmc112 + fmc150",
+        "cores":
+        [
+            {"name":    "sip_mac_engine",
+             "base":    "0x0"},
+            {"name":    "sip_cid",
+             "base":    "0x2000"},
+            {"name":    "sip_fmc150",
+             "base":    "0x2404"},
+            {"name":    "sip_i2c_master",
+             "base":    "0x3404"},
+            {"name":    "sip_fmc112",
+             "base":    "0x22402"},
+            {"name":    "sip_rxtx",
+             "base":    "0x32402"}
+        ]
+    }
+}

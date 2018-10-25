@@ -1,0 +1,35 @@
+[timestart] 642
+[size] 1000 600
+[pos] -246 -340
+*-5.199071 688 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] fdbk_sys_tb.
+[treeopen] fdbk_sys_tb.dut.
+[sst_width] 210
+[signals_width] 150
+[sst_expanded] 1
+[sst_vpaned_height] 154
+@28
+fdbk_sys_tb.iq
+@420
+fdbk_sys_tb.xy_sim[17:0]
+fdbk_sys_tb.out_xy[17:0]
+fdbk_sys_tb.lp_out_xy[19:0]
+@200
+-fdbk_core
+@28
+fdbk_sys_tb.dut.sync2
+@420
+fdbk_sys_tb.dut.demux_me[21:0]
+@200
+-mp_proc
+@28
+fdbk_sys_tb.dut.mp_proc.sync
+@420
+fdbk_sys_tb.dut.mp_proc.in_mp[17:0]
+@28
+fdbk_sys_tb.dut.mp_proc.out_sync
+@420
+fdbk_sys_tb.dut.mp_proc.out_xy[17:0]
+fdbk_sys_tb.dut.mp_proc.out_ph[18:0]
+[pattern_trace] 1
+[pattern_trace] 0

@@ -1,0 +1,29 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Debian) (preloaded format=pdftex 2018.9.21)  23 OCT 2018 11:08
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**slide7.tex
+(./slide7.tex (./lrdfig.tex
+(/usr/share/texlive/texmf-dist/tex/generic/pdftex/pdfcolor.tex)) [1{/var/lib/te
+xmf/fonts/map/pdftex/updmap/pdftex.map}] [2] [3 <./filt_time.pdf> <./filt_freq.
+pdf
+
+pdfTeX warning: pdftex (file ./filt_freq.pdf): PDF inclusion: multiple pdfs wit
+h page group included in a single page
+>] [4] )</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pf
+b></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></us
+r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/shar
+e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texli
+ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/
+fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/ty
+pe1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
+blic/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/am
+sfonts/cm/cmtt10.pfb>
+Output written on slide7.pdf (4 pages, 139853 bytes).
+PDF statistics:
+ 131 PDF objects out of 1000 (max. 8388607)
+ 51 compressed objects within 1 object stream
+ 0 named destinations out of 1000 (max. 500000)
+ 11 words of extra memory for PDF output out of 10000 (max. 10000000)
+

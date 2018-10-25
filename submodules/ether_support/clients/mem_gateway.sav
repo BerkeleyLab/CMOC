@@ -1,0 +1,58 @@
+[timestart] 1816
+[size] 1909 756
+[pos] 8 56
+*-4.666209 1988 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] mem_gateway_tb.
+@24
+mem_gateway_tb.ccc[31:0]
+@28
+mem_gateway_tb.dut.rx_ready
+mem_gateway_tb.dut.rx_strobe
+@22
+mem_gateway_tb.dut.packet_in[7:0]
+@24
+mem_gateway_tb.dut.length[10:0]
+@200
+-
+@22
+mem_gateway_tb.dut.iword[31:0]
+@24
+mem_gateway_tb.dut.mode[1:0]
+@22
+mem_gateway_tb.dut.octet[3:0]
+mem_gateway_tb.dut.addr[23:0]
+@28
+mem_gateway_tb.dut.control_strobe
+mem_gateway_tb.dut.control_rd
+@22
+mem_gateway_tb.dut.data_out[31:0]
+@200
+-
+@800022
+mem_gateway_tb.dut.strobe_shift[9:0]
+@28
+(5)mem_gateway_tb.dut.strobe_shift[9:0]
+@22
+mem_gateway_tb.dut.oword_shiftin[7:0]
+@1001200
+-group_end
+@22
+mem_gateway_tb.dut.data_pipe[15:0]
+mem_gateway_tb.dut.read_buf[31:0]
+mem_gateway_tb.dut.oword[31:0]
+@28
+mem_gateway_tb.dut.we
+@22
+mem_gateway_tb.dut.fifod[7:0]
+@200
+-
+@28
+mem_gateway_tb.dut.tx_strobe
+@22
+mem_gateway_tb.dut.packet_out[7:0]
+@28
+mem_gateway_tb.tx_strobe1
+mem_gateway_tb.dut.full
+mem_gateway_tb.dut.empty
+[pattern_trace] 1
+[pattern_trace] 0

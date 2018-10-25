@@ -1,0 +1,38 @@
+[timestart] 73
+[size] 1435 599
+[pos] 0 -1
+*-5.040035 190 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] linearize_tb.
+[treeopen] linearize_tb.dut.
+[sst_width] 210
+[signals_width] 190
+[sst_expanded] 1
+[sst_vpaned_height] 154
+@28
+linearize_tb.dut_curvegen_bank
+linearize_tb.qphase[1:0]
+@22
+linearize_tb.i_cart[15:0]
+linearize_tb.i_angl[16:0]
+linearize_tb.dut.square[31:0]
+linearize_tb.dut.square1[15:0]
+linearize_tb.dut.square2[15:0]
+linearize_tb.dut.mag[15:0]
+linearize_tb.dut.magd[15:0]
+linearize_tb.dut.curvegen.offset_rom_addr[7:0]
+linearize_tb.dut.curvegen.offset_rom[15:0]
+linearize_tb.dut.curvegen.offs1[15:0]
+linearize_tb.dut.curvegen.sum[15:0]
+linearize_tb.dut.curve[15:0]
+linearize_tb.dut.curve1[15:0]
+linearize_tb.dut.cart1[15:0]
+linearize_tb.dut.angl1[16:0]
+linearize_tb.dut.gain[15:0]
+linearize_tb.dut.gain1[15:0]
+linearize_tb.dut.poff[15:0]
+linearize_tb.dut.o_cart[15:0]
+linearize_tb.dut.o_angl[16:0]
+@28
+linearize_tb.dut.o_qphase[1:0]
+[pattern_trace] 1
+[pattern_trace] 0

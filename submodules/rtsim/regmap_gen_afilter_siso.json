@@ -1,0 +1,26 @@
+{
+    "dot_k_out": {
+        "access": "w",
+        "addr_width": 10,
+        "base_addr": 0,
+        "data_width": 18,
+        "description": "",
+        "sign": "signed"
+    },
+    "outer_prod_k_out": {
+        "access": "w",
+        "addr_width": 10,
+        "base_addr": 1024,
+        "data_width": 18,
+        "description": "",
+        "sign": "signed"
+    },
+    "resonator_prop_const": {
+        "access": "w",
+        "addr_width": 10,
+        "base_addr": 2048,
+        "data_width": 21,
+        "description": "",
+        "sign": "unsigned"
+    }
+}

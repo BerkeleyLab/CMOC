@@ -1,0 +1,61 @@
+[timestart] 0
+[size] 1920 1080
+[pos] -1 -1
+*-6.938402 300 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] mem_gateway_x_tb.
+@28
+mem_gateway_x_tb.clk
+mem_gateway_x_tb.dsp_clk
+@200
+-Local Bus
+@22
+mem_gateway_x_tb.lb_data[31:0]
+@28
+mem_gateway_x_tb.lb_control_strobe
+@22
+mem_gateway_x_tb.lb_addr[23:0]
+@820
+mem_gateway_x_tb.lb_data_in[31:0]
+@28
+mem_gateway_x_tb.lb_control_rd
+mem_gateway_x_tb.lb_control_strobe_d3
+mem_gateway_x_tb.lb_control_strobe_back
+@200
+-eth local bus
+@28
+mem_gateway_x_tb.control_strobe
+@29
+mem_gateway_x_tb.control_rd
+@820
+mem_gateway_x_tb.data_in[31:0]
+@22
+mem_gateway_x_tb.data_out[31:0]
+@200
+-Ethernet
+@24
+mem_gateway_x_tb.ccc[31:0]
+@28
+mem_gateway_x_tb.rx_strobe
+mem_gateway_x_tb.rx_ready
+mem_gateway_x_tb.tx_req
+mem_gateway_x_tb.tx_ack
+@24
+mem_gateway_x_tb.tx_len[10:0]
+@28
+mem_gateway_x_tb.tx_strobe
+@22
+mem_gateway_x_tb.packet_in[7:0]
+@820
+mem_gateway_x_tb.packet_out[7:0]
+@200
+-eth2dsp
+@28
+mem_gateway_x_tb.x_eth2dsp.gate_in
+@22
+mem_gateway_x_tb.x_eth2dsp.data_in[56:0]
+@28
+mem_gateway_x_tb.x_eth2dsp.gate_out
+@22
+mem_gateway_x_tb.x_eth2dsp.data_out[56:0]
+[pattern_trace] 1
+[pattern_trace] 0

@@ -1,0 +1,57 @@
+[size] 1440 825
+[pos] 0 0
+*-15.658140 711400 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] gmii_fifo_tb.
+[treeopen] gmii_fifo_tb.mut.
+[treeopen] gmii_fifo_tb.mut.fifo_rx.
+@200
+-test pattern
+@28
+gmii_fifo_tb.clk_out
+gmii_fifo_tb.clk_in
+gmii_fifo_tb.running
+@22
+gmii_fifo_tb.d_in[7:0]
+gmii_fifo_tb.mut.fifo_input[8:0]
+@24
+gmii_fifo_tb.in_cnt[6:0]
+@200
+-
+-dpram
+@22
+gmii_fifo_tb.mut.fifo_rx.u0.di[8:0]
+@28
+gmii_fifo_tb.mut.fifo_rx.u0.we
+@22
+gmii_fifo_tb.mut.fifo_rx.u0.waddr[3:0]
+gmii_fifo_tb.mut.fifo_rx.u0.raddr[3:0]
+gmii_fifo_tb.mut.fifo_rx.u0.do[8:0]
+@200
+-
+-fifo
+@28
+gmii_fifo_tb.mut.fifo_rx.wr_clk
+gmii_fifo_tb.mut.fifo_rx.rd_clk
+gmii_fifo_tb.mut.fifo_rx.we
+@22
+gmii_fifo_tb.mut.fifo_rx.din[8:0]
+@28
+gmii_fifo_tb.mut.fifo_rx.re
+@22
+gmii_fifo_tb.mut.fifo_rx.dout[8:0]
+@28
+gmii_fifo_tb.mut.fifo_rx.empty
+gmii_fifo_tb.mut.fifo_rx.full
+gmii_fifo_tb.mut.fifo_read
+@200
+-output
+@22
+gmii_fifo_tb.d_out[7:0]
+@28
+gmii_fifo_tb.strobe_out
+@24
+gmii_fifo_tb.out_cnt[11:0]
+@28
+gmii_fifo_tb.fail_data
+gmii_fifo_tb.fail_len
+gmii_fifo_tb.fail

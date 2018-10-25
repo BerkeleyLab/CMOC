@@ -1,0 +1,66 @@
+[
+    { "type": "title",
+      "title": "Live Target configuration" },
+
+    { "type": "options",
+      "title": "IP address",
+      "desc": "IP address of target",
+      "section": "live_target",
+      "key": "ip",
+      "options": ["192.168.1.7", "als_llrf"] },
+
+    { "type": "options",
+      "title": "IO Protocol",
+      "desc": "IO Protocol",
+      "section": "live_target",
+      "key": "protocol",
+      "options": ["PSPEPS", "REDIS", "FILE","EPICS"] },
+
+    { "type": "numeric",
+      "title": "Port",
+      "desc": "Memory-gateway port (typically 3000)",
+      "section": "live_target",
+      "key": "port" },
+
+    { "type": "bool",
+      "title": "Asynchronous IO",
+      "desc": "Enable Python twisted asynchronous IO",
+      "section": "live_target",
+      "key": "async",
+      "true": "auto"},
+
+    { "type": "bool",
+      "title": "Enabled",
+      "desc": "Enabled",
+      "section": "live_target",
+      "key": "enabled",
+      "true": "auto"},
+
+    { "type": "string",
+      "title": "Firmware ID",
+      "desc": "Firmware ID",
+      "section": "live_target",
+      "key": "id"},
+
+    { "type": "string",
+      "title": "Application path",
+      "desc": "Directory name that contains Applicaiton class, relative path to main.py",
+      "section": "live_target",
+      "key": "id"},
+
+    { "type": "title",
+      "title": "Local trace file configuration" },
+
+    { "type": "path",
+      "title": "File path",
+      "desc": "File path of the trace data",
+      "section": "file_target",
+      "key": "fname" },
+
+    { "type": "options",
+      "title": "IO Protocol",
+      "desc": "IO Protocol",
+      "section": "file_target",
+      "key": "protocol",
+      "options": ["PSPEPS", "REDIS", "FILE","EPICS"] }
+]

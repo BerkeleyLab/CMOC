@@ -1,0 +1,235 @@
+[timestart] 0
+[size] 1435 839
+[pos] 4 34
+*-11.045326 2981 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] larger_tb.
+[treeopen] larger_tb.l.
+[treeopen] larger_tb.l.llrf.
+[treeopen] larger_tb.l.llrf.dsp.
+[treeopen] larger_tb.l.llrf.dsp.fchan_subset.
+[treeopen] larger_tb.l.llrf.dsp.fdbk_core.
+[treeopen] larger_tb.l.vmod1.cav4_elec.
+[treeopen] larger_tb.l.vmod1.cav4_elec.cav_mode[0].
+[treeopen] larger_tb.l.vmod1.cav4_elec.cav_mode[0].mode.
+[treeopen] larger_tb.l.vmod1.cav4_elec.cav_mode[1].
+[treeopen] larger_tb.l.vmod1.cav4_elec.cav_mode[1].mode.
+[treeopen] larger_tb.l.vmod1.cav4_elec.cav_mode[2].mode.
+[sst_width] 377
+[signals_width] 385
+[sst_expanded] 1
+[sst_vpaned_height] 236
+@28
+larger_tb.clk1x
+larger_tb.clk2x
+larger_tb.control_clk
+larger_tb.control_write
+larger_tb.control_read
+@22
+larger_tb.control_data[31:0]
+@24
+larger_tb.control_addr[14:0]
+@22
+larger_tb.l.lb_out[31:0]
+@c00200
+-slow gateway
+@24
+larger_tb.l.slow_bridge.lb_addr[14:0]
+@28
+larger_tb.l.slow_bridge.lb_read
+@22
+larger_tb.l.slow_bridge.lb_out[7:0]
+@28
+larger_tb.l.slow_bridge.running
+@c00022
+larger_tb.l.slow_bridge.slow_out[7:0]
+@28
+(0)larger_tb.l.slow_bridge.slow_out[7:0]
+(1)larger_tb.l.slow_bridge.slow_out[7:0]
+(2)larger_tb.l.slow_bridge.slow_out[7:0]
+(3)larger_tb.l.slow_bridge.slow_out[7:0]
+(4)larger_tb.l.slow_bridge.slow_out[7:0]
+(5)larger_tb.l.slow_bridge.slow_out[7:0]
+(6)larger_tb.l.slow_bridge.slow_out[7:0]
+(7)larger_tb.l.slow_bridge.slow_out[7:0]
+@1401200
+-group_end
+@28
+larger_tb.l.slow_bridge.slow_snap
+larger_tb.l.slow_bridge.slow_op
+@1401200
+-slow gateway
+@c00200
+-mp_proc
+@28
+larger_tb.l.llrf.dsp.fdbk_core.mp_proc.sync
+@420
+larger_tb.l.llrf.dsp.fdbk_core.mp_proc.in_mp[17:0]
+@24
+larger_tb.l.llrf.dsp.fdbk_core.mp_proc.sel_thresh[17:0]
+@28
+larger_tb.l.llrf.dsp.fdbk_core.mp_proc.sel_thresh_bad
+larger_tb.l.llrf.dsp.fdbk_core.mp_proc.sel_thresh_good
+larger_tb.l.llrf.dsp.fdbk_core.mp_proc.sel_amp_ok
+larger_tb.l.llrf.dsp.fdbk_core.mp_proc.sel_en
+@24
+larger_tb.l.llrf.dsp.fdbk_core.mp_proc.ph_offset[17:0]
+@420
+larger_tb.l.llrf.dsp.fdbk_core.mp_proc.out_xy[17:0]
+larger_tb.l.llrf.dsp.fdbk_core.mp_proc.out_ph[18:0]
+@1401200
+-mp_proc
+@c00200
+-drive to clk2x
+@420
+larger_tb.l.drive[17:0]
+@28
+larger_tb.l.iq
+@420
+larger_tb.l.drive2x[17:0]
+@28
+larger_tb.l.iq2x
+larger_tb.l.iq2
+@420
+larger_tb.l.drive2[17:0]
+@1401200
+-drive to clk2x
+@c00200
+-cav to 1x
+@420
+larger_tb.l.a_field[15:0]
+larger_tb.l.a2_field[15:0]
+@1401200
+-cav to 1x
+@c00200
+-lb to clk2x
+@28
+larger_tb.l.clk2x
+larger_tb.l.lb2_write
+@22
+larger_tb.l.lb2_data[31:0]
+@24
+larger_tb.l.lb2_addr[14:0]
+@1401200
+-lb to clk2x
+@c00200
+-lb to clk1x
+@28
+larger_tb.l.clk1x
+larger_tb.l.lb1_write
+@22
+larger_tb.l.lb1_data[31:0]
+@24
+larger_tb.l.lb1_addr[14:0]
+@1401200
+-lb to clk1x
+@c00200
+-vmod1
+@420
+larger_tb.l.vmod1.cav4_elec.freq_0_coarse_freq[27:0]
+@28
+larger_tb.l.vmod1.we_cav4_elec_freq_0_coarse_freq
+@24
+larger_tb.l.vmod1.lb_addr[14:0]
+@28
+larger_tb.l.vmod1.lb_write
+@22
+larger_tb.l.vmod1.cav4_elec.cav_mode[0].mode.square.mag2_out[18:0]
+@420
+larger_tb.l.vmod1.cav4_elec.cav_mode[0].mode.out_couple.pair[18:0]
+larger_tb.l.vmod1.cav4_elec.cav_mode[0].freq.coarse_freq[27:0]
+larger_tb.l.vmod1.cav4_elec.cav_mode[1].freq.coarse_freq[27:0]
+@18420
+larger_tb.l.vmod1.cav4_elec.cav_mode[1].mode.mech_phase[18:0]
+@20000
+-
+@22
+larger_tb.l.vmod1.cav4_elec.cav_mode[1].mode.mech_phase_fine[31:0]
+@1401200
+-vmod1
+@28
+larger_tb.l.llrf.lbi_write
+larger_tb.l.llrf.lb1_write
+larger_tb.l.llrf.lb_write
+@200
+-pi mode state
+@28
+larger_tb.l.vmod1.iq
+@420
+larger_tb.l.vmod1.cav4_elec.cav_mode[0].mode.lp_pair.drive[17:0]
+larger_tb.l.vmod1.cav4_elec.cav_mode[0].mode.lp_pair.bw[17:0]
+larger_tb.l.vmod1.cav4_elec.cav_mode[0].mode.lp_pair.res[17:0]
+@200
+-amp_lp
+@c00420
+larger_tb.l.vmod1.amp_lp.drive[17:0]
+@28
+(0)larger_tb.l.vmod1.amp_lp.drive[17:0]
+(1)larger_tb.l.vmod1.amp_lp.drive[17:0]
+(2)larger_tb.l.vmod1.amp_lp.drive[17:0]
+(3)larger_tb.l.vmod1.amp_lp.drive[17:0]
+(4)larger_tb.l.vmod1.amp_lp.drive[17:0]
+(5)larger_tb.l.vmod1.amp_lp.drive[17:0]
+(6)larger_tb.l.vmod1.amp_lp.drive[17:0]
+(7)larger_tb.l.vmod1.amp_lp.drive[17:0]
+(8)larger_tb.l.vmod1.amp_lp.drive[17:0]
+(9)larger_tb.l.vmod1.amp_lp.drive[17:0]
+(10)larger_tb.l.vmod1.amp_lp.drive[17:0]
+(11)larger_tb.l.vmod1.amp_lp.drive[17:0]
+(12)larger_tb.l.vmod1.amp_lp.drive[17:0]
+(13)larger_tb.l.vmod1.amp_lp.drive[17:0]
+(14)larger_tb.l.vmod1.amp_lp.drive[17:0]
+(15)larger_tb.l.vmod1.amp_lp.drive[17:0]
+(16)larger_tb.l.vmod1.amp_lp.drive[17:0]
+(17)larger_tb.l.vmod1.amp_lp.drive[17:0]
+@1401200
+-group_end
+@420
+larger_tb.l.vmod1.amp_lp.res[17:0]
+@200
+-llrf_dsp
+@18420
+larger_tb.l.llrf.dsp.a_reflect[15:0]
+@20000
+-
+-
+@18420
+larger_tb.l.llrf.dsp.a_forward[15:0]
+@20000
+-
+-
+@18420
+larger_tb.l.llrf.dsp.cosa[17:0]
+@20000
+-
+-
+@420
+larger_tb.l.llrf.dsp.a_field[15:0]
+larger_tb.l.llrf.dsp.fdbk_in[17:0]
+larger_tb.l.llrf.dsp.drive[17:0]
+@28
+larger_tb.l.llrf.dsp.cic_sample
+larger_tb.l.llrf.dsp.clk
+larger_tb.l.llrf.dsp.sr_val
+@24
+larger_tb.l.llrf.dsp.wave_cnt[6:0]
+@28
+larger_tb.l.llrf.dsp.mon_12_strobe
+@22
+larger_tb.l.llrf.dsp.chan_keep[11:0]
+@28
+larger_tb.l.llrf.dsp.mon_strobe
+@200
+-circle
+@420
+larger_tb.l.circle.d_in[15:0]
+@28
+larger_tb.l.circle.boundary
+larger_tb.l.circle.stb_in
+larger_tb.l.circle.rbank
+larger_tb.l.circle.enable
+larger_tb.l.circle.stb_out
+larger_tb.l.circle.write_en
+larger_tb.l.circle.wbank
+larger_tb.l.circle.end_write_addr
+[pattern_trace] 1
+[pattern_trace] 0

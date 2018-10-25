@@ -1,0 +1,12 @@
+[size] 1000 600
+[pos] 203 70
+*-8.860586 469 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] crc_check_tb.
+@22
+crc_check_tb.d_in[11:0]
+@28
+crc_check_tb.strobe_in
+@22
+crc_check_tb.d_out[11:0]
+@28
+crc_check_tb.strobe_out

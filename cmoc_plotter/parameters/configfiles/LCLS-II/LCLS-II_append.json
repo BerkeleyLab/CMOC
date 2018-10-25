@@ -1,0 +1,78 @@
+{
+
+        "Simulation":{
+                "Tstep": {
+                        "value": 10e-9
+                }
+        },
+
+        "Piezo0": {
+           "mech_couplings" : {
+               "value": {"MechMode0": 1.0835, "MechMode1": 3.45135, "MechMode2": 0.88485}
+            }
+        },
+
+        "ElecMode0":{
+            "mech_couplings" : {
+               "value": {"MechMode0": 61.0, "MechMode1": 200.0, "MechMode2": 150.0}
+            },
+            "foffset": {
+              "value": 5.0
+            },
+            "Q_drive": {
+              "value": 8.1e4
+            }
+        },
+
+        "ElecMode1":{
+            "RoverQ": {
+              "value": 10.0
+            },
+            "Q_drive": {
+              "value": 8.1e4
+            }
+        },
+
+        "ElecMode2":{
+            "RoverQ": {
+              "value": 10.0
+            },
+            "Q_drive": {
+              "value": 8.1e4
+            }
+        },
+
+
+        "MechMode0":{
+           "vibration_hack": {
+              "value": 80000
+           }
+        },
+
+        "MechMode1": {
+           "full_scale": {
+              "value": 1.5,
+              "units": "sqrt(J)",
+              "description": "FPGA full-scale resonator amplitude register"
+           },
+           "vibration_hack": {
+              "value": 20000
+           }
+        },
+
+        "MechMode2": {
+           "f0": {
+              "value": 24500,
+              "units": "Hz",
+              "description": "Frequency"
+           },
+           "full_scale": {
+              "value": 1.5,
+              "units": "sqrt(J)",
+              "description": "FPGA full-scale resonator amplitude register"
+           },
+           "vibration_hack": {
+              "value": 10000
+           }
+        }
+}

@@ -1,0 +1,152 @@
+Pseudo-Scalable Pseudo-Ethernet Pseudo-Switch
+Larry Doolittle <ldoolitt@recycle.lbl.gov>
+
+This hardware design addresses the custom-FPGA to commodity-CPU boundary
+through Gigabit Ethernet.  The link supports a point-to-point link between
+the multiple client modules and a single conventional (nominally EPICS) server.
+By design, there is no provision to have multiple IP addresses or MAC
+addresses interact with these clients.  It would make a certain amount of
+sense to use raw Ethernet for this purpose, but UDP was chosen instead to
+allow the server software to run in unprivileged mode using the traditional
+Berkeley sockets API.
+
+The current construction assumes that only a single UDP port is used on
+the server side, so all responses are directed there.  If multiple processes
+are used on the server, each expecting their own responses, this design
+would need modification in a way that affected the interface to client
+modules.
+
+Attached is the work-in-progress Verilog code that covers Tx and Rx of UDP.
+It includes several demo client modules: client_tx, client_rx, and client_thru,
+as well as a crude but functional mapping from UDP packets to a localbus
+(mem_gateway).  Documentation for the client interface takes the form of
+three .eps files ("make" will convert them to PDF).
+
+The module udpip_rx reads the UDP packet length in the length field and uses
+it to generate a strobe needed by the clients; then the message is pipelined
+through as many emux_rx modules as there are clients.  Each stage of this
+multiplexer triggers when the UDP port matches the client address.  head_rx
+checks the 32-bit CRC of the Ethernet frame; udpip_rx checks the length of the
+IP and UDP packet for correctness. In case errors are detected, the whole
+Ethernet frame is dropped (clients stay idle).
+
+The boundary to Ethernet follows the Ethernet GMII standard.  An emulation of
+this boundary is included, that allows attachment of the simulated design to
+the Linux (or Mac OS X, thanks Eric!) tun interface.  The design has been
+verified functional in hardware many times, first using the Avnet Virtex-5
+LXT/SXT PCI Express Development Kit with its DP83865 GigE PHY chip, as well
+as Xilinx SP601 and SP605 boards with an 88E1111.
+
+This code also supports Ethernet using the FPGA's on-board serdes,
+as typically connects to SFP.  That code basically works, and can be used,
+although autonegotiation is yet to be successfully tested.  Most devices
+(e.g., a Cisco switch or Copper SFP) will time-out to a usable full-duplex
+mode of operation, at which point packets flow just fine.
+
+Using the Linux tun test framework, one can use tcpdump to see it produce
+valid UDP packets, e.g.:
+# tcpdump -vv -x -s 150 -n -e -i tap0
+22:05:07.455669 00:10:5a:d1:52:b4 > 00:ff:a2:7e:eb:28, ethertype IPv4 (0x0800), length 68: (tos 0x10, ttl 32, id 0, offset 0, flags [none], proto UDP (17), length 54) 192.168.7.4.2000 > 192.168.7.1.59607: [no cksum] UDP, length 26
+	0x0000:  4510 0036 0000 0000 2011 0b52 c0a8 0704
+	0x0010:  c0a8 0701 07d0 e8d7 0022 0000 4865 6c6c
+	0x0020:  6f20 576f 726c 6420 6672 6f6d 2056 6572
+	0x0030:  696c 6f67 210a
+and netcat can interact with it correctly as a pure userspace program.
+See the comments at the top of the Makefile for some terse setup info.
+
+A valid Ethernet packet has a minimum size of 64 octets (including CRC,
+but not preamble or start-of-frame delimiter).  That rule will be violated
+if a client module asks for a payload size of less than 18 octets.
+This code will not detect that error, and simply transmit a short packet.
+Wikipedia's IEEE 802.3 article says "If the upper layer protocol submits
+a protocol data unit (PDU) less than 64 bytes, 802.3 will pad the data
+field to achieve the minimum 64 bytes. The minimum Frame size will then
+always be of 64 bytes."  See the to-do item below.
+
+On the scalability to large numbers of client modules: the head_tx module
+includes a 16-input priority encoder for the Tx request lines from each
+module.  This can obviously be extended if needed.  The real limit to
+chain length is that the packet length needs to make it all the way
+through the emux_tx chain and tail_tx back to head_tx, before head_tx
+enters its h_data state.  That sets a limit of about 48 clients.
+
+While a default MAC and IP address are set at synthesis time, there is
+provision to change those at initialization time.  This is the address_set
+port of aggregate.v, and it has been verified in simulation (see aggregate_tb).
+No code has yet been written to take advantage of this on real hardware,
+where it would be appropriate to read the MAC and IP address from some
+non-volatile on-board memory.
+
+In its current form, the design fits in about 11% of an XC3S1000, and clocks
+at 140 MHz in the -4 speed grade -- well above the required 125 MHz.  Having
+some timing margin at this point is good, because the Xilinx tools tend to
+degrade the speed of larger designs.  It also fits in about 14% of an
+XC6SLX16, with even more timing margin.
+
+An earlier, fully functional version of the code logged the following sizes:
+Virtex5   -1  710 registers   908 6LUTs  3.70 ns
+Spartan3  -4  731 registers  1050 4LUTs  6.25 ns
+Stratix3  -4  715 registers   756 4LUTs  4.44 ns
+
+Status on various test platforms:
+  Avnet AES-XLX-V5LXT-PCIE50-G (XC5VLX50T, "make ether_mc_av5t.bit")
+    builds using XST-10.1 and XST-12.1.  Both bitfiles tested, works.
+  Xilinx ML505 (XC5VLX50T, "make top_level/xilinx/ether_mc_ml505.bit")
+    builds using XST-10.1.  Tested, works.
+  Xilinx SP601 (XC6SLX16, "make top_level/xilinx/ether_mc_sp601.bit")
+    builds using XST-14.2.  Tested, works.
+  Xilinx SP605 (XC6SLX45T, "make top_level/xilinx/ether_*_sp605.bit")
+    * is selection of gmii, gtp, or both.
+    builds using XST-14.2.  Earlier version tested, works.
+    This type of test also covers OHWR SPEC & CUTE-WR, all tested, works.
+  Altera (Stratix-IV)
+    tested using the serdes to SGMII, works, but not included here
+  Xilinx AC701 (XC7A200T, "make top_level/ether_*_ac701.bit")
+    * is selection of rgmii, gtp, or both.
+    builds using XST-14.6 or vivado 2014.2. Tested, works.
+
+This packet includes a few files that are derived from the work of others.
+  enc_8b10b.v                   Chuck Benz
+  ep_rx_pcs.v                   Tomasz Wlostowski
+  ep_sync_detect.v              Tomasz Wlostowski
+  ep_tx_pcs.v                   Tomasz Wlostowski
+  fifo.v                        Rudolf Usselmann
+  rocketio_wrapper_gtp.v        Xilinx wizard
+  rocketio_wrapper_gtp_tile.v   Xilinx wizard
+  sp60x_clocks.v                Chip Lukes, JAD
+See each of those files for more info.
+
+As is typical for me, all the tests and syntheses are driven by Makefile
+rules.  Non-Unix people have problems understanding how this works.
+I suggest browsing your local bookstore for a good introductory Unix
+book that covers Bourne shell, make, and awk.  "UNIX in a Nutshell"
+might be good, see chapters 3, 4, 11, and 20.  Other general tools
+used here are C and perl.
+
+While the Verilog code is standard and should run everywhere, the simulator
+assumed in the Makefile is Icarus Verilog.  Any modern (0.9 or higher)
+version should work fine.  Other compilers may need extra work to get
+the VPI programs to build and load properly.  I use gtkwave for viewing
+waveforms in .vcd files: to see the waveforms from a test run of (for
+example) mem_gateway, say "make mem_gateway_view".  This will work for
+any test bench with a corresponding .sav file.
+
+Note that the goal of this code is functionality, not full RFC or standards
+compliance.  Communication features that are not, and probably never will
+be included:
+  Ethernet flow control (PAUSE frames)
+  IEEE 802.3 frames
+  Jumbo frames
+  IPv6
+  IP options
+  IP fragments
+  non-zero and non-fake UDP checksum
+
+See the file todo for a long list of desired features and improvements.
+
+References:
+  ???       Ethernet
+  RFC 791   IP    Internet Protocol
+  RFC 768   UDP   User Datagram Protocol
+  RFC 792   ICMP  Internet Control Message Protocol
+  RFC 826   ARP   Address Resolution Protocol

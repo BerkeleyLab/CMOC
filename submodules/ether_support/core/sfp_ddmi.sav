@@ -1,0 +1,30 @@
+[timestart] 0
+[size] 958 1059
+[pos] -1 -1
+*-16.380669 104000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] sfp_ddmi_tb.
+@28
+sfp_ddmi_tb.clk
+sfp_ddmi_tb.mut.tick
+sfp_ddmi_tb.SCL
+sfp_ddmi_tb.SDA
+@24
+sfp_ddmi_tb.mut.state[5:0]
+@28
+sfp_ddmi_tb.mut.last
+sfp_ddmi_tb.mut.sda_latch
+@23
+sfp_ddmi_tb.mut.shift[8:0]
+@28
+sfp_ddmi_tb.mut.ss
+sfp_ddmi_tb.mut.ss_next
+@22
+sfp_ddmi_tb.mut.sr_next[8:0]
+sfp_ddmi_tb.mut.shift[8:0]
+sfp_ddmi_tb.mut.result[8:0]
+sfp_ddmi_tb.pc_out[7:0]
+@28
+sfp_ddmi_tb.strobe_out
+sfp_ddmi_tb.mut.pc[7:0]
+[pattern_trace] 1
+[pattern_trace] 0

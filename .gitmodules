@@ -1,0 +1,9 @@
+[submodule "submodules/common_hdl"]
+	path = submodules/common_hdl
+	url = git@github.com:ghuangatlbl/BIDS-common-hdl.git
+[submodule "submodules/fpga_family"]
+	path = submodules/fpga_family
+	url = git@github.com:ghuangatlbl/BIDS-fpga-family.git
+[submodule "submodules/peripheral_drivers"]
+	path = submodules/peripheral_drivers
+	url = git@github.com:ghuangatlbl/BIDS-peripheral-drivers.git

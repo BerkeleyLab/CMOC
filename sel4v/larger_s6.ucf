@@ -1,0 +1,16 @@
+# XXX totally fake, doesn't correspond to any known board
+NET "clk1x" LOC="B10";  # GCLK19
+NET "clk2x" LOC="C11";  # GCLK17
+NET "lb_clk" LOC="D11";  # GCLK15
+
+# 100 MHz (eventual goal) DSP clock
+NET "clk1x" TNM_NET = "clk1x";
+TIMESPEC "TS_clk1x" = PERIOD "clk1x"  16.0 ns HIGH 50% INPUT_JITTER 0.05 ns;
+
+# Double-rate clock for simulator
+NET "clk2x" TNM_NET = "clk2x";
+TIMESPEC "TS_clk2x" = PERIOD "clk2x"  12.0 ns HIGH 50% INPUT_JITTER 0.05 ns;
+
+# 125 MHz Ethernet clock
+NET "lb_clk" TNM_NET = "lb_clk";
+TIMESPEC "TS_lb_clk" = PERIOD "lb_clk"  8.0 ns HIGH 50% INPUT_JITTER 0.05 ns;

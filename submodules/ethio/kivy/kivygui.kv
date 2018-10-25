@@ -1,0 +1,241 @@
+<MasterView>:
+    traces_view: traces_view
+    sm: sm
+    phys_reg_view: phys_reg_view
+    reg_view: reg_view
+    client_view: client_view
+    plt_cfg_view: plt_cfg_view
+    slider_xscale: slider_xscale
+    meas_view: meas_view
+    slow_view: slow_view
+    init_view: init_view
+    chassis_view: chassis_view
+
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: 5
+        padding: '2sp'
+
+        BoxLayout:
+            size_hint_y: None
+            height: '32dp'
+            padding: [10,1]
+            Label:
+                text: 'Target: ' + str(root.sm.current)
+            Label:
+                text: 'FPS: ' + str(root.fps)[:4]
+                size_hint_x: None
+                width: '120sp'
+            Spinner:
+                text: 'Data Source'
+                size_hint_x: None
+                width: '120sp'
+                values: [screen.name for screen in sm.screens]
+                on_text: root.set_data_source(*args)
+            Button:
+                text: 'Save Fig'
+                width: '120sp'
+                size_hint_x: None
+                on_press: root.traces_plot.save_pdf_fig('multipage.pdf')
+            Button:
+                text: 'Capture data'
+                width: '120sp'
+                size_hint_x: None
+                on_press: root.capture_trace()
+
+        BoxLayout:
+            id: reactive_layout
+
+            Splitter:
+                max_size: reactive_layout.width - self.strip_size
+                min_size: sp(30) + self.strip_size
+                sizable_from: 'right'
+                keep_within_parent: True
+                rescale_with_parent: True
+                BoxLayout:
+                    orientation: 'vertical'
+                    spacing: 5
+                    padding: '2sp'
+                    BoxLayout:
+                        id: traces_view
+                        center: self.parent.center
+                    BoxLayout:
+                        size_hint_y: None
+                        height: '40dp'
+                        Label:
+                            size_hint_x: 0.2
+                            text: 'Time Scale:'
+                        FocusSlider:
+                            id: slider_xscale
+                            size_hint_x: 0.6
+                            step: 1
+                            orientation: 'horizontal'
+                        BoxLayout:
+                            orientation: 'vertical'
+                            size_hint_x: 0.2
+                            Label:
+                                size_hint_y: 0.5
+                                text: '{:d} pts'.format(root.trace_len)
+                            Label:
+                                size_hint_y: 0.5
+                                text: '{:8.3f} us/pt'.format(root.time_step_iq * 1e6)
+
+            TabbedPanel:
+                pos_hint: {'center_x': .5, 'center_y': .5}
+                size_hint_x: 0.5
+                do_default_tab: False
+                tab_width: 60
+
+                TabbedPanelItem:
+                    text: 'Plot'
+                    BoxLayout:
+                        orientation: 'vertical'
+                        spacing: 4
+                        padding: '1sp'
+                        BoxLayout:
+                            size_hint_y: None
+                            height: '30sp'
+                            Label:
+                                text: 'Use Physical Units:'
+                            Switch:
+                                id: unit_switch
+                                on_active: root.unit_switch_toggled(self.active)
+                        BoxLayout:
+                            size_hint_y: None
+                            height: '30sp'
+                            Label:
+                                text: 'Spectrum Averaging:'
+                            Switch:
+                                id: avg_switch
+                                #on_active: root.plot_avg_en = self.active
+                                on_active: root.avg_switch_toggled(self.active)
+                        BoxLayout:
+                            size_hint_y: None
+                            height: '30sp'
+                            Label:
+                                text: 'Select 2nd cavity:'
+                            Switch:
+                                id: cavity_switch
+                                on_active: root.cavity_switch_toggled(self.active)
+                        BoxLayout:
+                            orientation: 'vertical'
+                            spacing: 4
+                            padding: '1sp'
+                            id: plt_cfg_view
+                TabbedPanelItem:
+                    text: 'FPGA'
+                    RegDictView:
+                        id: reg_view
+                        orientation: 'vertical'
+                TabbedPanelItem:
+                    text: 'Physical'
+                    RegDictView:
+                        id: phys_reg_view
+                        orientation: 'vertical'
+                TabbedPanelItem:
+                    text: 'Meas'
+                    Accordion:
+                        orientation: 'vertical'
+                        AccordionItem:
+                            title: 'Slow data'
+                            on_collapse: root.slow_view_collapsed(self.collapse)
+                            DictInfoView:
+                                id: slow_view
+                                orientation: 'vertical'
+                        AccordionItem:
+                            title: 'Chassis'
+                            on_collapse: root.chassis_view_collapsed(self.collapse)
+                            DictInfoView:
+                                id: chassis_view
+                                orientation: 'vertical'
+                        AccordionItem:
+                            title: 'Waveform'
+                            DictInfoView:
+                                id: meas_view
+                                orientation: 'vertical'
+                TabbedPanelItem:
+                    text: 'Clients'
+                    BoxLayout:
+                        id: client_view
+                        orientation: 'vertical'
+                TabbedPanelItem:
+                    text: 'Target'
+                    Accordion:
+                        orientation: 'vertical'
+                        AccordionItem:
+                            title: 'Chassis Init'
+                            BoxLayout:
+                                orientation: 'vertical'
+                                spacing: 8
+                                padding: '2sp'
+                                Button:
+                                    text: 'Chassis Init'
+                                    height: '30dp'
+                                    size_hint: (0.8,None)
+                                    pos_hint: {'center_x': .5, 'center_y': .5}
+                                    on_press: root.init_chassis()
+                                DictInfoView:
+                                    id: init_view
+                                    orientation: 'vertical'
+                        AccordionItem:
+                            title: 'DevInfo'
+                            ScreenManager:
+                                id: sm
+
+<RegSliderView>:
+    size_hint_y: None
+    height: '60dp'
+    label_widget: label_widget
+    slider_widget: slider_widget
+    ti_widget: ti_widget
+    orientation: 'vertical'
+    #spacing: 5
+    padding: '2sp'
+
+    Label:
+        id: label_widget
+        size_hint_y: 0.4
+    BoxLayout:
+        size_hint_y: 0.6
+        FocusSlider:
+            id: slider_widget
+            orientation: 'horizontal'
+            value: root.value
+            on_value: root.slider_value_changed(self.value)
+        TextInput:
+            id: ti_widget
+            #input_filter: 'int'
+            size_hint_x: None
+            width: '80dp'
+            #padding: [6,self.line_height,6,12]
+            multiline: False
+            text: '{}'.format(int(root.value))
+            on_text_validate: root.slider_value_changed(self.text)
+
+[CustomListItem@SelectableView+BoxLayout]:
+    size_hint_y: ctx.size_hint_y
+    height: ctx.height
+    ListItemLabel:
+        text: ctx.text
+        bold: True
+        italic: True
+        halign: 'left'
+        color: [0,1,0,1]
+    ListItemLabel:
+        text: ctx.data
+        halign: 'right'
+
+<TargetInfoScreen>:
+    io_info_view: io_info_view
+    dev_info_view: dev_info_view
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: 5
+        DictInfoView:
+            id: io_info_view
+            size_hint_y: 0.4
+            center: self.parent.center
+        DictInfoView:
+            id: dev_info_view
+            size_hint_y: 0.6
+            center: self.parent.center

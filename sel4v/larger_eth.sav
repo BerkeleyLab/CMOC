@@ -1,0 +1,27 @@
+[timestart] 3903
+[size] 1000 600
+[pos] -1 -1
+*-10.173223 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] larger_eth_tb.
+[treeopen] larger_eth_tb.larger_eth.
+[sst_width] 210
+[signals_width] 198
+[sst_expanded] 1
+[sst_vpaned_height] 154
+@200
+-larger
+@28
+larger_eth_tb.larger_eth.larger.lb_clk
+@22
+larger_eth_tb.larger_eth.larger.lb_data[31:0]
+larger_eth_tb.larger_eth.larger.lb_addr[14:0]
+@28
+larger_eth_tb.larger_eth.larger.lb_read
+larger_eth_tb.larger_eth.larger.llrf_write
+@200
+-larger_eth
+@28
+larger_eth_tb.larger_eth.eth_lb_control_rd
+larger_eth_tb.larger_eth.eth_lb_control_strobe
+[pattern_trace] 1
+[pattern_trace] 0

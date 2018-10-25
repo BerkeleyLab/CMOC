@@ -1,0 +1,29 @@
+[
+    { "type": "title",
+      "title": "Graphics configuration" },
+
+    { "type": "numeric",
+      "title": "Trace Update Rate",
+      "desc": "Trace update rate per second",
+      "section": "graph",
+      "key": "update_rate" },
+
+    { "type": "string",
+      "title": "Log file name",
+      "desc": "data log file name",
+      "section": "graph",
+      "key": "measure_log_fname" },
+
+    { "type": "options",
+      "title": "Log Enable",
+      "desc": "Log Enable",
+      "section": "graph",
+      "key": "measure_log_en",
+      "options": ["True", "False"] },
+
+    { "type": "numeric",
+      "title": "Trace Length",
+      "desc": "Trace Length",
+      "section": "graph",
+      "key": "trace_len" }
+]

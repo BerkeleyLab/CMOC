@@ -1,0 +1,152 @@
+Supporting SPI Flash memory chips, e.g., Winbond W25X16,
+used for booting a Spartan-6 FPGA.
+
+  Winbond W25Q80BVSSIG  8M (1Mx8) for $0.46 in 1's ISADK
+  Winbond W25Q16BVSSIG 16M (2Mx8) for $0.74 in 1's ISADK
+  Winbond W25Q32DWSSIG 32M (4Mx8) for $1.39 in 1's ISADK
+  Winbond W25Q64FVSSIG 64M (8Mx8) for $1.99 in 1's ISADK
+
+These particular chips have a "Fast Read Dual Output (3Bh)"
+command, that I think the Spartan-6 supports, which will
+let an 'LX75(T) boot in 0.25 s instead of 0.50 seconds.
+But there is no need to support that command as part of the
+programming process.
+
+The programming will take place based on UDP packets received
+by the PSPEPS.  For the moment suppose a 512x8 DPRAM is filled
+by Magic, and our programming engine gets a trigger when it
+is supposed to perform the actions encoded in that RAM. The
+engine will write data into a second 512x8 RAM, which forms
+the outgoing packet that confirms the activity.
+
+Mostly the contents of the input RAM are SPI instructions.
+For instance, 0x06 for Write Enable, and 0xD8nnnnnn for
+Block Erase.  A Page Program starts 0x02nnnnnn, but is
+followed by up to 256 data bytes.  These variable length
+records therefore need some encoding as to when they start
+and stop.  I choose to have them length encoded, as in,
+a byte for length, followed by that number of instruction/data
+bytes.  I only see reason (table 11.2.2) to encode lengths 1,
+2, 4, 6, 260, and 261.
+
+Some expected flows for a packet would be
+  06            Write Enable
+  20 nn nn nn   Sector Erase (4 kB)
+  05 rr         Read status register until completion, S0=0
+or
+  06            Write Enable
+  0x nn nn nn dd dd ... dd  Page program (260 bytes)
+  05 rr         Read status register until completion, S0=0
+or
+  0b nn nn nn xx dd dd ... dd  Fast Read (261 bytes)
+to verify a write.  Also
+  90 xx xx 00 rr rr
+  9f rr rr rr
+  05 rr
+for chip identification and status.
+
+Access to a Spartan-6 control primitive ICAP_SPARTAN6 is squeezed
+into this module, by abusing a bit in that length octet.  See below.
+
+I also need a link to the watchdog and support microprocessor,
+and I choose SPI protocol for that link.  This should show up as
+a second network port.  The FPGA has no reason to snoop on packets
+sent from the network to the microcontroller.
+
+SPI commands to implement on the FPGA as a slave to the micro:
+  Write Ethernet MAC and IP address
+  Write UDP packet contents
+  Read UDP packet contents
+  Read status (LED values, UDP packet ready, ..?)
+This UDP packet exchange could share a DPRAM with the boot ROM SPI
+described above, but with a different UDP port?  No packet is handled
+by both micro and boot ROM SPI engine.  Easy (?) to multiplex the
+read of an incoming buffer, need to think about how to share access
+to the write port of the outgoing packet buffer.  Contention should
+be a rare event: the micro will only spit out packets for its watchdog
+and status reporting at 1 Hz; assuming 512-bit packets and 12 Mbps SPI
+transfer rate, the buffer will be occupied that way only 0.005% of the
+time.  One of those transfers could even be aborted by a higher priority
+ROM SPI transaction, if that abortion could be detected by a status read,
+so the micro could retry.  The only difficult window is between a
+request-to-send to the GigE, and the buffer emptying: about 1 microsecond.
+Just delay processing of the input buffer until the output buffer is
+confirmed empty.
+
+So we need an arbiter.  Inputs:
+  Input packet ready for boot ROM engine
+  Input packet ready for microcontroller read
+  Boot ROM engine packet processing complete
+  Microcontroller write cycle
+Outputs:
+  Start boot ROM engine
+  Source select to write output packet
+  Microcontroller write successful
+
+Tests in scaffold_tb:
+[DONE]  Ethernet to Rx packet memory
+[DONE]  Microcontroller to Ethernet MAC and IP
+[DONE]  Microcontroller to Tx packet memory
+[DONE]  Microcontroller read status
+[DONE]  Microcontroller read Rx packet memory
+[DONE]  Flash program from Rx packet memory
+[DONE]  Flash readout to Tx packet memory
+[DONE]  Tx packet memory to Ethernet
+(done in the sense of "look right on the simulated timing diagram"
+and "passes a simple regression test".  These have now all in fact
+also been "verified on hardware")
+
+Other tasks:
+These modules have been integrate with PSEPS (see eth_rx2.v and eth_tx2.v
+in this directory), although as yet there is no eth_inhibit in PSEPS.
+
+Consider adding a mode switch that would connect the micro SPI transparently
+to the Flash SPI.  Use a second CS input from the micro?
+
+The Python program spi_test.py pushes UDP packets to this device; I started
+by reading the chip id and status, but it has been successfully used to
+program the Flash on a real SP601.
+
+Note that the two-ports-in-one architecture would also be applicable if there
+were a soft-core microprocessor on the the FPGA, instead of an externally
+connected (via SPI) microprocessor.  In that case, spi_slave would be replaced
+by something else.
+
+One more packet->SPI message category not listed above: New Ethernet address
+destined for microprocessor EEPROM; enabled by push-button on micro.  This
+is a submessage type, transparent to FPGA.
+
+Real response to
+020500020500049f00000006900000000000020500020500049f00000006900000000000
+  00000000000000ef40170000000000ef1600ff000000000000ef40170000000000ef16
+from SP601.  That is
+90 (Manufacturer/Device ID) response  ef 16
+   Manufacturer:  ef  Winbond
+   Device:        16  64 Mbit
+9f (JEDEC ID)               response  ef 40 17
+   Manufacturer:  ef  Winbond
+   Type:          40  W25Q (SPI)
+   Capacity:      17  64 Mbit
+
+Use of ICAP_SPARTAN6: set high bit of length byte sent to Flash program,
+Data will be redirected to ICAP_SPARTAN6.  Network byte order (big-endian).
+Reads not working yet.  Reprogram sequence (Table 7-1 of UG380):
+  FFFF  Dummy Word
+  5566  Sync Word
+  AA99  Sync Word
+  3261  Type 1 Write 1 Words to GENERAL_1
+  XXXX  Warm Boot Start Address [15:0]
+  3281  Type 1 Write 1 Word to GENERAL2
+  XXXX  OPCODE and Address [23:16]
+  32A1  Type 1 Write 1 Word to GENERAL3
+  XXXX  Fallback Start Address [15:0]
+  32C1  Type 1 Write 1 Word to GENERAL4
+  XXXX  OPCODE and Fallback Address [23:16]
+  30A1  Type 1 Write 1 Word to CMD
+  000E  IPROG Command
+  2000  Type 1 NO OP
+My understanding is that OPCODE is the SPI Flash read command, usually 0x03.
+Since our length word counts bytes (please only use even numbers, since ICAP
+is a 16-bit interface) and has a limited range, the easiest approach is to
+pad to 256 bytes (128 words) with NO OP instructions.  Something like
+  88 ff ff 55 66 aa 99 32 61 xx xx 32 81 03 xx 32 a1 xx xx 32 c1 03 xx 30 a1 00 0e 20 00 20 00 ...

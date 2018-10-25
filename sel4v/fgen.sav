@@ -1,0 +1,61 @@
+[timestart] 0
+[size] 1347 659
+[pos] 2 0
+*-12.133130 8640 1415 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] fgen_tb.
+[treeopen] fgen_tb.dut.
+[sst_width] 210
+[signals_width] 239
+[sst_expanded] 1
+[sst_vpaned_height] 175
+@28
+fgen_tb.trig
+fgen_tb.control_strobe
+fgen_tb.lbo_write
+fgen_tb.collision
+@200
+-fgen
+@28
+fgen_tb.dut.write_thru
+fgen_tb.dut.think
+fgen_tb.dut.trig_do
+@24
+fgen_tb.dut.duration[31:0]
+fgen_tb.dut.counter[31:0]
+@28
+fgen_tb.dut.counter_zero
+fgen_tb.dut.pulse_on
+@420
+fgen_tb.dut.chirp_f0[31:0]
+fgen_tb.dut.chirp_q[31:0]
+@8420
+fgen_tb.dut.chirp_p[31:0]
+@20000
+-
+@8420
+fgen_tb.dut.sine_out[17:0]
+@20000
+-
+@8420
+fgen_tb.dut.offset_sine[16:0]
+@20000
+-
+@8420
+fgen_tb.dut.sqrt_out[15:0]
+@20000
+-
+@28
+fgen_tb.dut.addr_match
+@420
+fgen_tb.dut.our_data[31:0]
+@200
+-sqrt
+@28
+fgen_tb.dut.sqrt.en
+@24
+fgen_tb.dut.sqrt.x[29:0]
+fgen_tb.dut.sqrt.y[14:0]
+@28
+fgen_tb.dut.sqrt.dav
+[pattern_trace] 1
+[pattern_trace] 0

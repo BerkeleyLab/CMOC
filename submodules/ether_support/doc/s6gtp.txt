@@ -1,0 +1,41 @@
+How to make GTP instantiation for Spartan-6
+  particularly the SFP interface on SP605.
+  GTP mapping on SP605 according to UG526, UG385, and UG386:
+    PCIe Rx/Tx pins C7,  D7,  A6,  B6     Bank 101 (GTPA1_DUAL_X0Y0) GTP0
+    SMA  Rx/Tx pins C9,  D9,  A8,  B8     Bank 101 (GTPA1_DUAL_X0Y0) GTP1
+    SFP  Rx/Tx pins D13, C13, B14, A14    Bank 123 (GTPA1_DUAL_X1Y0) GTP0
+    FMC  Rx/Tx pins B16, A16, D15, C15    Bank 123 (GTPA1_DUAL_X1Y0) GTP1
+  Each bank has two available refclks?
+    MGTREFCLK0*_101  A10/B10  PCIE_250M
+    MGTREFCLK1*_101  C11/D11  SMA_REFCLK
+    MGTREFCLK0*_123  A12/B12  SFPCLK_QO
+    MGTREFCLK1*_123  E12/F12  FMC_GBTCLK0_M2C
+
+1. setup Xilinx 12.1
+2. run coregen
+3. make a stupid new project
+4. Select chip: Spartan-6 XC6SLX45T-FGG484-3
+5. Generate: Verilog
+6. Expand left-hand menu tree: FPGA Features and Design/IO Interfaces/
+7. Click "Spartan-6 FPGA GTP Transceiver Wizard"
+8. Right-hand pane under Actions, click "Customize and Generate"
+   page 1 of 11: Select GTPA1_DUAL_X1_Y0, un-select GTPA1_DUAL_X0_Y0
+   page 2 of 11: Protocol Template "gigabit ethernet"
+      (this is where to turn off 8b/10b encoding)
+   page 3 of 11: Select only TXRUNDISP and RXCHARISK
+   page 4-10 of 11: take defaults (my eyes are glazing over, GigE defaults
+      should be right, and a lot of it doesn't apply)
+   page 11 of 11: summary, click "Generate"
+9. Resulting files are
+   s6_gtpwizard_v1_5_tile.v (module S6_GTPWIZARD_V1_5_TILE, instantiates GTPA1_DUAL)
+   s6_gtpwizard_v1_5.v (module S6_GTPWIZARD_V1_5, instantiates S6_GTPWIZARD_V1_5_TILE)
+   The latter file looks useless, the former has all the magic PLL constants.
+   Both are labeled
+// (c) Copyright 2009 Xilinx, Inc. All rights reserved.
+// This file contains confidential and proprietary information
+// of Xilinx, Inc. and is protected under U.S. and
+// international copyright and other intellectual property
+// laws.
+   plus a fancy disclaimer.
+   s6_gtpwizard_v1_5/example_design/gtp_attributes.ucf has all the same
+   attributes without a copyright statement.
