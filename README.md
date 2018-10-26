@@ -6,7 +6,7 @@ and software support can be found int the `runtime/` directory, which both inclu
 
 A series of libraries are used in the form of submodules. To clone this project and get the latest versions of the libraries, type:
 
-		$ git clone --recursive git@gitlab.lbl.gov:modeling/cmoc.git
+		$ git clone --recursive https://github.com/BerkeleyLab/CMOC.git
 
 ## Dependencies
 
