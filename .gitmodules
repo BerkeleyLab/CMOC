@@ -1,9 +1,9 @@
 [submodule "submodules/common_hdl"]
 	path = submodules/common_hdl
-	url = https://github.com/ghuangatlbl/BIDS-common-hdl.git
+	url = https://github.com/LBL-BIDS/common-hdl
 [submodule "submodules/fpga_family"]
 	path = submodules/fpga_family
-	url = https://github.com/ghuangatlbl/BIDS-fpga-family.git
+	url = https://github.com/LBL-BIDS/fpga-family
 [submodule "submodules/peripheral_drivers"]
 	path = submodules/peripheral_drivers
-	url = https://github.com/ghuangatlbl/BIDS-peripheral-drivers.git
+	url = https://github.com/LBL-BIDS/peripheral-drivers
