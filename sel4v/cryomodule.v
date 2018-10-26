@@ -46,7 +46,7 @@
 // signals that the reading of one buffer is complete so the double-buffer
 // logic and flip and make the next one available.
 
-`define SIMPLE_DEMO  // Used to get a 5-minute bitfile build
+//`define SIMPLE_DEMO  // Used to get a 5-minute bitfile build
 module cryomodule(
 	input clk1x,
 	input clk2x,
