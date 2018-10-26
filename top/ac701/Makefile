@@ -8,6 +8,7 @@ XILINX_TOOL := VIVADO
 include ../../dir_list.mk
 
 vpath %.v $(APP_DIR)
+vpath %.xdc $(BS_HARDWARE_DIR)
 
 include $(BUILD_DIR)/top_rules.mk
 
@@ -20,10 +21,12 @@ ifneq (,$(findstring gtp,$(COMMUNICATION)))
     larger_shell_gtp_rgmii_$(HARDWARE).bit.d: $(COREGEN_GTP_TGT)
 endif
 
-system_top.xdc: larger_extra.xdc
+VFLAGS_DEP += -y .
 
+system_top.xdc: larger_extra.xdc rgmii.xdc
+
+include $(BUILD_DIR)/top_rules.mk
 include $(BS_HARDWARE_DIR)/rules.mk
-include $(FPGA_FAMILY_DIR)/$(FPGA_FAMILY)/rules.mk
 include $(BOARD_SUPPORT_DIR)/rules.mk
 include $(ETHER_SUPPORT_DIR)/rules.mk
 include $(APP_DIR)/rules.mk
